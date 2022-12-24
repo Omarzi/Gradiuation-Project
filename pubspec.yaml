@@ -43,7 +43,6 @@ dev_dependencies:
     sdk: flutter
   fluttertoast: ^8.1.1
   google_fonts: ^3.0.1
-  http: ^0.13.5
   page_transition: ^2.0.9
   percent_indicator: ^4.2.2
   shared_preferences: ^2.0.15
