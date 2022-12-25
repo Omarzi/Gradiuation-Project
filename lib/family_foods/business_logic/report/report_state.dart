@@ -5,8 +5,6 @@ part of 'report_cubit.dart';
 @immutable
 abstract class ReportState {}
 
-class ReportInitial extends ReportState {}
-
 class ReportInitialState extends ReportState {}
 
 class ReportLoadingState extends ReportState {}

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
-import 'package:graduation_project/family_foods/presentation/widgets/default_appbar.dart';
+import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -25,7 +25,7 @@ class SubmittedReportScreen extends StatelessWidget {
           backgroundColor: AppColors.transparentColor,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(7.h),
-            child: const DefaultAppBar(),
+            child: const DefaultAppBarInAuth(),
           ),
           body: Column(
             children: [
@@ -48,11 +48,14 @@ class SubmittedReportScreen extends StatelessWidget {
               SizedBox(height: 8.h),
               DefaultButton(
                 bgColor: AppColors.primaryColor,
-                text: 'Back To Home Page',
+                text: 'Back To Login Page',
                 textColor: AppColors.whiteColor,
                 fontSize: 13.sp,
                 size: Size(72.w, 6.8.h),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'loginScreen', (route) => false);
+                },
               ),
             ],
           ),

@@ -9,7 +9,7 @@ import 'package:graduation_project/data/data_provider/remote/dio_helper.dart';
 part 'report_state.dart';
 
 class ReportCubit extends Cubit<ReportState> {
-  ReportCubit() : super(ReportInitial());
+  ReportCubit() : super(ReportInitialState());
 
   static ReportCubit get(context) => BlocProvider.of(context);
 

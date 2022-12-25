@@ -3,7 +3,7 @@ import 'package:graduation_project/core/app_assets.dart';
 import 'package:graduation_project/core/constant_methods.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/forget-password/forget_password_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
-import 'package:graduation_project/family_foods/presentation/widgets/default_appbar.dart';
+import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_text_form_field.dart';
 import 'package:sizer/sizer.dart';
@@ -31,10 +31,10 @@ class SendSixDigits extends StatelessWidget {
             color: AppColors.primaryColor,
           );
         } else if (state is SendSixDigitsSucessState) {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            'createNewPasswordScreen',
-            (route) => false,
+          const Center(
+            child: CircularProgressIndicator(
+              color: AppColors.primaryColor,
+            ),
           );
           flutterToast(
             msg: 'Success',
@@ -56,7 +56,7 @@ class SendSixDigits extends StatelessWidget {
               backgroundColor: AppColors.transparentColor,
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(7.h),
-                child: const DefaultAppBar(),
+                child: const DefaultAppBarInAuth(),
               ),
               body: Form(
                 key: sendSixDigitsPasswordKey,

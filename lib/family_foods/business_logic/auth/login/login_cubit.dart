@@ -8,7 +8,6 @@ import 'package:graduation_project/data/Models/auth/login_model.dart';
 import 'package:graduation_project/data/data_provider/local/my_cache.dart';
 import 'package:graduation_project/data/data_provider/local/my_cache_keys.dart';
 import 'package:graduation_project/data/data_provider/remote/dio_helper.dart';
-import 'package:dio/dio.dart';
 part 'login_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -53,6 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
       } else if (value.data['username'] != null) {
         print(MyCacheKeys.token.toString());
         MyCache.putString(key: MyCacheKeys.token, value: value.data['token']);
+        MyCache.putString(key: MyCacheKeys.myUserName, value: value.data['username']);
         emit(LoginSuccessState(loginModel: LoginModel.fromJson(value.data)));
       } else {
         emit(LoginErrorState(error: 'Invalid Data'));

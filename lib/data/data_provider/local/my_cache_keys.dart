@@ -3,6 +3,7 @@ enum MyCacheKeys {
   myId,
   myEmail,
   myPassword,
+  myUserName,
   selectedColorIndex,
   token
 }

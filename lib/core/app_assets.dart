@@ -9,6 +9,7 @@ class AppAssets {
   static const String mainBackgroundPng = '${baseImage}main-bg.png';
   static const String workingLogoPng = '${baseImage}working-logo.png';
   static const String mainBackgroundForHomePng = '${baseImage}bg-for-home.png';
+  static const String progilePhotoPng = '${baseImage}profile-photo.png';
 
   /// App Icons
   static const String emailIconPng = '${baseImage}email-icon.png';
@@ -30,6 +31,17 @@ class AppAssets {
       '${baseImage}product-icon-selected.png';
   static const String cartIconSelectedPng =
       '${baseImage}cart-icon-selected.png';
+  static const String contactIconInHomePng =
+      '${baseImage}contactus-icon-in-home.png';
+  static const String debtIconInHomePng = '${baseImage}debt-in-home.png';
+  static const String profileIconInHomePng =
+      '${baseImage}profile-icon-in-home.png';
+  static const String yourOrdersIconInHomePng =
+      '${baseImage}your-orders-in-home.png';
+  static const String getAllProductsIconInHomePng =
+      '${baseImage}get-all-products.png';
+  static const String contactsUsIconInHomePng =
+      '${baseImage}coins-solid-icon-in-home.png';
 
   // Icons For BottomNavBar Un Selected
   static const String homeIconUnSelectedPng =

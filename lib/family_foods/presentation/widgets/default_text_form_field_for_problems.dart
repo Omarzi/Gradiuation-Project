@@ -5,7 +5,7 @@ import 'package:graduation_project/family_foods/presentation/styles/app_colors.d
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class DefaultTextFormFieldForProblem extends StatefulWidget {
+class DefaultTextFormFieldForProblem extends StatelessWidget {
   Function validator;
   Function onChanged;
   final TextEditingController? textEditingController;
@@ -23,24 +23,19 @@ class DefaultTextFormFieldForProblem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DefaultTextFormFieldForProblem> createState() => _DefaultTextFormFieldForProblemState();
-}
-
-class _DefaultTextFormFieldForProblemState extends State<DefaultTextFormFieldForProblem> {
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) => widget.validator(value),
-      onChanged: (value) => widget.onChanged(value),
-      controller: widget.textEditingController,
-      keyboardType: widget.textInputType,
+      validator: (value) => validator(value),
+      onChanged: (value) => onChanged(value),
+      controller: textEditingController,
+      keyboardType: textInputType,
       obscureText: false,
       cursorColor: AppColors.blackColorPlayed,
-      maxLines: widget.maxLines,
+      maxLines: maxLines,
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.grey2ColorPlayed,
-        hintText: widget.hintText,
+        hintText: hintText,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.w,

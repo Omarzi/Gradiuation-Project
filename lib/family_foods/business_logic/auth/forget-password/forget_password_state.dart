@@ -9,19 +9,19 @@ abstract class ForgetPasswordState {
   final String? id;
   final States forgetNetState;
   const ForgetPasswordState(
-      {this.email,
-      this.otb,
-      this.id,
-      this.forgetNetState = States.success});
+      {this.email, this.otb, this.id, this.forgetNetState = States.success});
 }
 
 class ForgetPasswordInitial extends ForgetPasswordState {}
 
+// Get States For Some Cubits
 class GetForgetPasswordState extends ForgetPasswordState {
   final States forgetState_;
-  const GetForgetPasswordState({required this.forgetState_}) : super (forgetNetState: forgetState_);
+  const GetForgetPasswordState({required this.forgetState_})
+      : super(forgetNetState: forgetState_);
 }
 
+// Forget Password
 class ForgetPasswordLoadingState extends ForgetPasswordState {}
 
 class ForgetPasswordSendEmailState extends ForgetPasswordState {}
@@ -33,6 +33,7 @@ class ForgetPasswordErrorState extends ForgetPasswordState {
   ForgetPasswordErrorState({required this.error});
 }
 
+// Send 6 Digits
 class SendSixDigitsLoadingState extends ForgetPasswordState {
   final String otb_;
 

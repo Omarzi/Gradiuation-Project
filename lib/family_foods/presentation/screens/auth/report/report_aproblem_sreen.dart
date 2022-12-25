@@ -9,7 +9,7 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
-import 'package:graduation_project/family_foods/presentation/widgets/default_appbar.dart';
+import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 
 class ReportAProblemScreen extends StatelessWidget {
   static const String routeName = 'reportAProblemScreen';
@@ -49,7 +49,7 @@ class ReportAProblemScreen extends StatelessWidget {
             backgroundColor: AppColors.transparentColor,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(7.h),
-              child: const DefaultAppBar(),
+              child: const DefaultAppBarInAuth(),
             ),
             body: Form(
               key: reportKey,

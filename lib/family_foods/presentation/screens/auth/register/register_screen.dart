@@ -4,7 +4,7 @@ import 'package:graduation_project/core/app_assets.dart';
 import 'package:graduation_project/core/constant_methods.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/register/register_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
-import 'package:graduation_project/family_foods/presentation/widgets/default_appbar.dart';
+import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_text_form_field.dart';
 import 'package:sizer/sizer.dart';
@@ -55,13 +55,13 @@ class RegisterScreen extends StatelessWidget {
               backgroundColor: AppColors.transparentColor,
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(7.h),
-                child: const DefaultAppBar(),
+                child: const DefaultAppBarInAuth(),
               ),
               body: Form(
                 key: registerKey,
                 child: ListView(
                   children: [
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 3.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: Text(
@@ -203,7 +203,7 @@ class RegisterScreen extends StatelessWidget {
                                     );
                                   }
                                 }),
-                          SizedBox(height: 3.h),
+                          SizedBox(height: 2.h),
                           Text(
                             "Or",
                             textAlign: TextAlign.center,
@@ -212,7 +212,7 @@ class RegisterScreen extends StatelessWidget {
                               fontSize: 12.2.sp,
                             ),
                           ),
-                          SizedBox(height: 3.h),
+                          SizedBox(height: 2.h),
                           DefaultButton(
                             bgColor: AppColors.whiteColor,
                             text: 'Report A Problem',
@@ -224,7 +224,7 @@ class RegisterScreen extends StatelessWidget {
                                   context, 'reportAProblemScreen');
                             },
                           ),
-                          SizedBox(height: 8.h),
+                          SizedBox(height: 3.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

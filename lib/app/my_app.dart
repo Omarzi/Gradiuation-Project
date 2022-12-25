@@ -4,14 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/forget-password/forget_password_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/login/login_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/register/register_cubit.dart';
+import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/report/report_cubit.dart';
+import 'package:graduation_project/family_foods/presentation/modules/layout/layout_screen.dart';
 import 'package:graduation_project/family_foods/presentation/screens/auth/forget-password/create_new_password.dart';
 import 'package:graduation_project/family_foods/presentation/screens/auth/forget-password/send_password.dart';
 import 'package:graduation_project/family_foods/presentation/screens/auth/forget-password/send_six_digits.dart';
 import 'package:graduation_project/family_foods/presentation/screens/auth/login/login_screen.dart';
 import 'package:graduation_project/family_foods/presentation/screens/auth/register/register_screen.dart';
 import 'package:graduation_project/family_foods/presentation/screens/check/check_screen.dart';
-import 'package:graduation_project/family_foods/presentation/screens/home_screen/home_screen.dart';
 import 'package:graduation_project/family_foods/presentation/screens/auth/report/report_aproblem_sreen.dart';
 import 'package:graduation_project/family_foods/presentation/screens/auth/report/submitted_report_screen.dart';
 import 'package:graduation_project/family_foods/presentation/screens/splash_screen/splash_screen.dart';
@@ -41,6 +42,9 @@ class FamilyFoods extends StatelessWidget {
             BlocProvider(
               create: (context) => ForgetPasswordCubit(),
             ),
+            BlocProvider(
+              create: (context) => LayoutCubit(),
+            ),
           ],
           child: MaterialApp(
             initialRoute: SplashScreen.routeName,
@@ -57,7 +61,7 @@ class FamilyFoods extends StatelessWidget {
               SendSixDigits.routeName: (context) => SendSixDigits(),
               CreateNewPasswordScreen.routeName: (context) =>
                   CreateNewPasswordScreen(),
-              HomeScreen.routeName: (context) => const HomeScreen(),
+              LayoutScreen.routeName: (context) => LayoutScreen(),
             },
           ),
         );

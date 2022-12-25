@@ -10,7 +10,7 @@ import 'package:graduation_project/family_foods/presentation/widgets/default_tex
 import 'package:sizer/sizer.dart';
 import 'package:graduation_project/core/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
-import 'package:graduation_project/family_foods/presentation/widgets/default_appbar.dart';
+import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
           );
         } else if (state is LoginSuccessState) {
           Navigator.pushNamedAndRemoveUntil(
-              context, 'homeScreen', (route) => false);
+              context, 'layoutScreen', (route) => false);
         }
       },
       builder: (context, state) {
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
               backgroundColor: AppColors.transparentColor,
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(7.h),
-                child: const DefaultAppBar(),
+                child: const DefaultAppBarInAuth(),
               ),
               body: Form(
                 key: loginKey,

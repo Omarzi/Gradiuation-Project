@@ -50,7 +50,7 @@ class SplashScreen extends StatelessWidget {
                             context, 'checkScreen', (route) => false);
                       } else {
                         Navigator.pushNamedAndRemoveUntil(
-                            context, 'homeScreen', (route) => false);
+                            context, 'layoutScreen', (route) => false);
                       }
                     },
                   ),
