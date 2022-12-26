@@ -2,7 +2,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:graduation_project/core/end_points.dart';
+import 'package:graduation_project/core/utils/end_points.dart';
 import 'package:graduation_project/data/data_provider/remote/dio_helper.dart';
 part 'register_state.dart';
 
@@ -48,8 +48,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       });
       if (response.data['name'] != null) {
         emit(RegisterSuccessState());
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, 'loginScreen', (route) => false);
       } else {
         emit(RegisterErrorState(error: response.data['message']));
       }

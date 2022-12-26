@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_assets.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/data/data_provider/local/my_cache.dart';
 import 'package:graduation_project/data/data_provider/local/my_cache_keys.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
@@ -8,7 +8,6 @@ import 'package:graduation_project/family_foods/presentation/widgets/custom_cont
 import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String routeName = 'homeScreen';
   String? token;
   HomeScreen({super.key});
 
@@ -16,12 +15,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      // color: AppColors.whiteColor,
       padding: EdgeInsets.symmetric(vertical: 2.8.h, horizontal: 4.w),
       child: Column(
         children: [
           Text(
-            'Welcome Mr.${MyCache.getString(key: MyCacheKeys.myUserName).toString()}',
+            'Welcome ${MyCache.getString(key: MyCacheKeys.myUserName).toString()}',
             style: TextStyle(fontSize: 18.sp, color: AppColors.blackColor),
           ),
           SizedBox(height: 5.h),
@@ -112,7 +110,7 @@ class HomeScreen extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.sp),
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(255, 12, 204, 140),
                   AppColors.primaryColor,

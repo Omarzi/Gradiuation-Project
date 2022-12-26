@@ -73,6 +73,5 @@ class MyCache {
 
   static Future<void> clearShared() async {
     await preferences?.clear();
-    await preferences?.remove(MyCacheKeys.token.toString());
   }
 }

@@ -1,22 +1,22 @@
 // ignore_for_file: depend_on_referenced_packages, unused_import, must_be_immutable
 import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/constant_methods.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
+import 'package:graduation_project/core/utils/app_routes.dart';
 import 'package:graduation_project/data/data_provider/local/my_cache.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/login/login_cubit.dart';
-import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
-import 'package:graduation_project/family_foods/presentation/widgets/default_text_form_field.dart';
-import 'package:sizer/sizer.dart';
-import 'package:graduation_project/core/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
+import 'package:graduation_project/family_foods/presentation/widgets/default_text_form_field.dart';
 import 'package:http/http.dart' as http;
+import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const String routeName = 'loginScreen';
-
   LoginScreen({super.key});
 
   TextEditingController? emailController;
@@ -39,8 +39,10 @@ class LoginScreen extends StatelessWidget {
             color: AppColors.primaryColor,
           );
         } else if (state is LoginSuccessState) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, 'layoutScreen', (route) => false);
+          Navigator.pushReplacementNamed(
+            context,
+            'layoutScreen',
+          );
         }
       },
       builder: (context, state) {
@@ -149,7 +151,9 @@ class LoginScreen extends StatelessWidget {
                                 child: TextButton(
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                        context, 'sendPasswordScreen');
+                                      context,
+                                      'sendPasswordScreen',
+                                    );
                                   },
                                   child: Text(
                                     "Forget Password?",
@@ -165,7 +169,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 2.5.h),
                           if (state is LoginLoadingState)
-                            const Center(
+                            Center(
                               child: CircularProgressIndicator(
                                 color: AppColors.primaryColor,
                               ),
@@ -209,7 +213,10 @@ class LoginScreen extends StatelessWidget {
                             fontSize: 14.sp,
                             size: Size(90.w, 6.8.h),
                             onPressed: () {
-                              Navigator.pushNamed(context, 'registerScreen');
+                              Navigator.pushReplacementNamed(
+                                context,
+                                'registerScreen',
+                              );
                             },
                           ),
                         ],

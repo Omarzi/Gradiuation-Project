@@ -1,10 +1,12 @@
 // ignore_for_file: depend_on_referenced_packages, unused_import, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_assets.dart';
-import 'package:graduation_project/core/constants.dart';
-import 'package:graduation_project/core/end_points.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
+import 'package:graduation_project/core/constants/constants.dart';
+import 'package:graduation_project/core/utils/app_routes.dart';
+import 'package:graduation_project/core/utils/end_points.dart';
 import 'package:graduation_project/data/data_provider/local/my_cache.dart';
 import 'package:graduation_project/data/data_provider/local/my_cache_keys.dart';
+import 'package:graduation_project/data/data_provider/remote/dio_helper.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/login/login_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_listtile.dart';
@@ -13,14 +15,17 @@ import 'package:iconsax/iconsax.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DefaultDrawer extends StatelessWidget {
-  DefaultDrawer({super.key});
+  const DefaultDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LogoutSuccessState) {
-          Navigator.pushNamed(context, 'checkScreen');
+          Navigator.pushReplacementNamed(
+            context,
+            'checkScreen',
+          );
         }
       },
       builder: (context, state) {
@@ -172,7 +177,7 @@ class DefaultDrawer extends StatelessWidget {
                   onTap: () {},
                 ),
                 if (state is LoginLoadingState)
-                  const Center(
+                  Center(
                     child: CircularProgressIndicator(
                       color: AppColors.primaryColor,
                     ),
@@ -185,8 +190,7 @@ class DefaultDrawer extends StatelessWidget {
                       style: TextStyle(fontSize: 14.sp),
                     ),
                     onTap: () {
-                      MyCache.putString(key: MyCacheKeys.token, value: "1");
-                      logouCubit.logOut();
+                      logouCubit.logOut(context: context);
                     },
                   ),
               ],

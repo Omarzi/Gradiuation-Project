@@ -39,7 +39,9 @@ dev_dependencies:
   floating_bottom_navigation_bar: ^1.5.2
   flutter_bloc: ^8.1.1
   flutter_lints: ^2.0.0
+  flutter_offline: ^2.1.0
   flutter_pinned_shortcut: ^0.0.4
+  flutter_svg: ^1.1.6
   flutter_test:
     sdk: flutter
   fluttertoast: ^8.1.1

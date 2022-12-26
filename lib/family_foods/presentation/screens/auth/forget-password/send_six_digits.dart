@@ -1,17 +1,16 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
-import 'package:graduation_project/core/app_assets.dart';
-import 'package:graduation_project/core/constant_methods.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/forget-password/forget_password_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_text_form_field.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SendSixDigits extends StatelessWidget {
-  static const String routeName = 'sendSixDigitsScreen';
 
   TextEditingController? digitsContoller;
 
@@ -31,7 +30,7 @@ class SendSixDigits extends StatelessWidget {
             color: AppColors.primaryColor,
           );
         } else if (state is SendSixDigitsSucessState) {
-          const Center(
+          Center(
             child: CircularProgressIndicator(
               color: AppColors.primaryColor,
             ),
@@ -104,7 +103,7 @@ class SendSixDigits extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     if (state is SendSixDigitsLoadingState)
-                      const Center(
+                      Center(
                         child: CircularProgressIndicator(
                           color: AppColors.primaryColor,
                         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
+import '../styles/app_colors.dart';
 
 class DefaultListTile extends StatelessWidget {
   final Icon leading;

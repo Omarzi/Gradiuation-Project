@@ -1,14 +1,13 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_assets.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
 import 'package:sizer/sizer.dart';
 
 class SubmittedReportScreen extends StatelessWidget {
-  static const String routeName = 'submittedReportScreen';
   const SubmittedReportScreen({super.key});
 
   @override
@@ -53,8 +52,10 @@ class SubmittedReportScreen extends StatelessWidget {
                 fontSize: 13.sp,
                 size: Size(72.w, 6.8.h),
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, 'loginScreen', (route) => false);
+                  Navigator.pushReplacementNamed(
+                    context,
+                    'loginScreen',
+                  );
                 },
               ),
             ],

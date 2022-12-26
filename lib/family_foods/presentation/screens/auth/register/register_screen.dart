@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_assets.dart';
-import 'package:graduation_project/core/constant_methods.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
+import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
 import 'package:graduation_project/family_foods/business_logic/auth/register/register_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
@@ -11,8 +11,6 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatelessWidget {
-  static const String routeName = 'registerScreen';
-
   RegisterScreen({super.key});
 
   TextEditingController? userNameController;
@@ -37,8 +35,10 @@ class RegisterScreen extends StatelessWidget {
             color: AppColors.primaryColor,
           );
         } else if (state is RegisterSuccessState) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, 'loginScreen', (route) => false);
+          Navigator.pushReplacementNamed(
+            context,
+            'loginScreen',
+          );
         }
       },
       builder: (context, state) {
@@ -179,7 +179,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 3.8.h),
                           if (state is RegisterLoadingState)
-                            const Center(
+                            Center(
                               child: CircularProgressIndicator(
                                 color: AppColors.primaryColor,
                               ),
@@ -221,7 +221,9 @@ class RegisterScreen extends StatelessWidget {
                             size: Size(90.w, 6.8.h),
                             onPressed: () {
                               Navigator.pushNamed(
-                                  context, 'reportAProblemScreen');
+                                context,
+                                'reportAProblemScreen',
+                              );
                             },
                           ),
                           SizedBox(height: 3.h),
@@ -239,8 +241,10 @@ class RegisterScreen extends StatelessWidget {
                               SizedBox(width: 0.5.h),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, 'reportAProblemScreen');
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    'reportAProblemScreen',
+                                  );
                                 },
                                 child: Text(
                                   ' contact help desk',

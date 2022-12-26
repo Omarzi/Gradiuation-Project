@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_project/core/end_points.dart';
-import 'package:graduation_project/data/Models/report/report.dart';
+import 'package:graduation_project/core/utils/end_points.dart';
 import 'package:graduation_project/data/data_provider/remote/dio_helper.dart';
 
 part 'report_state.dart';
@@ -17,6 +16,7 @@ class ReportCubit extends Cubit<ReportState> {
 
   void report({
     required String name,
+    required String phone,
     required String position,
     required String message,
     required BuildContext context,
@@ -24,6 +24,7 @@ class ReportCubit extends Cubit<ReportState> {
     emit(ReportLoadingState());
     dioHelper.postData(endPoint: reportAProblem, body: {
       "name": name,
+      "phone": phone,
       "position": position,
       "message": message,
     }).then((value) {
@@ -37,19 +38,6 @@ class ReportCubit extends Cubit<ReportState> {
       } else {
         emit(ReportErrorState(error: 'Invalid Data'));
       }
-      // if (value.statusCode == 200) {
-      //   // Do Stuff
-      //   // Nav
-      //   emit(LoginSuccessState(loginModel: LoginModel.fromJson(value.data)));
-      // Navigator.pushNamedAndRemoveUntil(
-      //     context, 'homeScreen', (route) => false);
-      //   emit(LoginSuccessState(loginModel: LoginModel.fromJson(value.data)));
-      //   return value.data;
-      // } else {
-      //   // Do Error Stuff Here
-      //   // emit error state
-      //   emit(LoginErrorState(error: value.data));
-      // }
     }).catchError((error) {
       print(error);
       emit(ReportErrorState(error: "Some Thing Error in Catch Error"));

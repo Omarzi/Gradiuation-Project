@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'hex_colors.dart';
+
 class AppColors {
-  static const primaryColor = Color(0xFF00D18B);
-  static const primaryColorLight = Color(0xFF6BE6C4);
-  static const greyColorPlayed = Color(0xFFE0E0E0);
-  static const grey2ColorPlayed = Color(0xFFF2F3F8);
-  static const blackColorPlayed = Color(0xFF4B4B4B);
-  static const balckColor2Played = Color(0xFF6E6E6E);
-  static const colorOfBottomNavBarSelected = Color(0xFF6BE6C4);
-  static const colorOfBottomNavBarUnSelected = Color(0xFF97AABD);
+  // Custom Colors
+  static final primaryColor = HexColor('#00D18B');
+  static final primaryColorLight = HexColor('#6BE6C4');
+  static final greyColorPlayed = HexColor('#E0E0E0');
+  static final grey2ColorPlayed = HexColor('#F2F3F8');
+  static final blackColorPlayed = HexColor('#4B4B4B');
+  static final balckColor2Played = HexColor('#6E6E6E');
+  static final colorOfBottomNavBarSelected = HexColor('#6BE6C4');
+  static final colorOfBottomNavBarUnSelected = HexColor('#97AABD');
 
   /// Constant Colors
   static const transparentColor = Colors.transparent;

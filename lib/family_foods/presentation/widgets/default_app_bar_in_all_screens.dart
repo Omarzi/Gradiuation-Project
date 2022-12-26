@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_assets.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:sizer/sizer.dart';
 

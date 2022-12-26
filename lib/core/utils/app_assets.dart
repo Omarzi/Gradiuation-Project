@@ -1,4 +1,4 @@
-import 'package:graduation_project/core/constants.dart';
+import '../constants/constants.dart';
 
 class AppAssets {
   /// App PNG Images
@@ -54,5 +54,5 @@ class AppAssets {
       '${baseImage}profile-icon-un-selected.png';
 
   /// App SVG Images
-
+  static const String noInternetSvg = '${baseImage}no_internet.svg';
 }

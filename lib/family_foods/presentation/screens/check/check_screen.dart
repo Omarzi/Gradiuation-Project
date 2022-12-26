@@ -1,13 +1,12 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
+import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
 import 'package:sizer/sizer.dart';
-import 'package:graduation_project/core/app_assets.dart';
-import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 
 class CheckScreen extends StatelessWidget {
-  static const String routeName = 'checkScreen';
   const CheckScreen({super.key});
 
   @override
@@ -29,8 +28,10 @@ class CheckScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 1.4),
                   DefaultButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, 'loginScreen'),
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      'loginScreen',
+                    ),
                     size: Size(70.w, 6.8.h),
                     bgColor: AppColors.primaryColor,
                     text: 'Sign in',
@@ -39,8 +40,10 @@ class CheckScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 3.h),
                   DefaultButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, 'registerScreen'),
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      'registerScreen',
+                    ),
                     size: Size(70.w, 6.8.h),
                     bgColor: AppColors.greyColorPlayed,
                     text: 'Register A new employee',

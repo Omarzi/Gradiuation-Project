@@ -1,8 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_assets.dart';
-import 'package:graduation_project/core/constant_methods.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
+import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
@@ -12,9 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../business_logic/auth/forget-password/forget_password_cubit.dart';
 
 class SendPasswordScreen extends StatelessWidget {
-  static const String routeName = 'sendPasswordScreen';
-
-  // TextEditingController? emailController;
 
   final GlobalKey<FormState> sendPasswordKey = GlobalKey<FormState>();
 
@@ -32,8 +29,10 @@ class SendPasswordScreen extends StatelessWidget {
             color: AppColors.primaryColor,
           );
         } else if (state is ForgetPasswordSuccessState) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, 'sendSixDigitsScreen', (route) => false);
+          Navigator.pushReplacementNamed(
+            context,
+            'sendSixDigitsScreen',
+          );
         }
       },
       builder: (context, state) {
@@ -81,7 +80,8 @@ class SendPasswordScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: DefaultTextFormField(
-                        textEditingController: forgetPasswordCubit.emailController,
+                        textEditingController:
+                            forgetPasswordCubit.emailController,
                         isObscureText: false,
                         validator: (value) {
                           if (value.isEmpty) {
@@ -103,7 +103,7 @@ class SendPasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     if (state is ForgetPasswordLoadingState)
-                      const Center(
+                      Center(
                         child: CircularProgressIndicator(
                           color: AppColors.primaryColor,
                         ),

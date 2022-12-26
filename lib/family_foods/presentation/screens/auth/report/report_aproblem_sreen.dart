@@ -1,23 +1,22 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/constant_methods.dart';
+import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
 import 'package:graduation_project/family_foods/business_logic/report/report_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_button.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_text_form_field_for_problems.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_project/core/app_assets.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_appbar_in_auth.dart';
 
 class ReportAProblemScreen extends StatelessWidget {
-  static const String routeName = 'reportAProblemScreen';
   TextEditingController? nameController;
   TextEditingController? positionController;
   TextEditingController? explainYourProblemController;
 
-  String? name, position, message;
+  String? name, phone, position, message;
 
   GlobalKey<FormState> reportKey = GlobalKey<FormState>();
 
@@ -32,8 +31,10 @@ class ReportAProblemScreen extends StatelessWidget {
           color: AppColors.primaryColor,
         );
       } else if (state is ReportSuccessState) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, 'submittedReportScreen', (route) => false);
+        Navigator.pushReplacementNamed(
+          context,
+          'submittedReportScreen',
+        );
       }
     }, builder: (context, state) {
       ReportCubit reportCubit = ReportCubit.get(context);
@@ -96,6 +97,21 @@ class ReportAProblemScreen extends StatelessWidget {
                         DefaultTextFormFieldForProblem(
                           validator: (value) {
                             if (value.isEmpty) {
+                              return 'Please Enter Your Phone';
+                            }
+                          },
+                          onChanged: (value) {
+                            phone = value;
+                          },
+                          // textEditingController: positionController!,
+                          textInputType: TextInputType.number,
+                          hintText: 'phone',
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 5.h),
+                        DefaultTextFormFieldForProblem(
+                          validator: (value) {
+                            if (value.isEmpty) {
                               return 'Please Enter Your Position';
                             }
                           },
@@ -138,29 +154,31 @@ class ReportAProblemScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 8.h),
                         if (state is ReportLoadingState)
-                            const Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.primaryColor,
-                              ),
+                          Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.primaryColor,
                             ),
-                          if (state is! ReportLoadingState)
-                        DefaultButton(
-                          bgColor: AppColors.primaryColor,
-                          text: 'Submit',
-                          textColor: AppColors.whiteColor,
-                          fontSize: 13.sp,
-                          size: Size(90.w, 6.8.h),
-                          onPressed: () {
-                            if (reportKey.currentState!.validate()) {
-                              reportCubit.report(
-                                name: name!,
-                                position: position!,
-                                message: message!,
-                                context: context,
-                              );
-                            }
-                          },
-                        ),
+                          ),
+                        if (state is! ReportLoadingState)
+                          DefaultButton(
+                            bgColor: AppColors.primaryColor,
+                            text: 'Submit',
+                            textColor: AppColors.whiteColor,
+                            fontSize: 13.sp,
+                            size: Size(90.w, 6.8.h),
+                            onPressed: () {
+                              if (reportKey.currentState!.validate()) {
+                                reportCubit.report(
+                                  name: name!,
+                                  phone: phone!,
+                                  position: position!,
+                                  message: message!,
+                                  context: context,
+                                );
+                              }
+                            },
+                          ),
+                        SizedBox(height: 5.h),
                       ],
                     ),
                   ),

@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, avoid_print
 import 'package:flutter/material.dart';
-import 'package:graduation_project/core/app_assets.dart';
+import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/modules/cart/cart_screen.dart';
 import 'package:graduation_project/family_foods/presentation/modules/home/home_screen.dart';
@@ -15,7 +15,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
 class LayoutScreen extends StatelessWidget {
-  static const String routeName = 'layoutScreen';
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -44,7 +43,7 @@ class LayoutScreen extends StatelessWidget {
             Scaffold(
               key: scaffoldKey,
               backgroundColor: AppColors.transparentColor,
-              drawer: DefaultDrawer(),
+              drawer: const DefaultDrawer(),
               appBar: PreferredSize(
                 preferredSize: Size(double.infinity, 7.h),
                 child: DefaultAppBarInAllScreens(scaffoldKey: scaffoldKey),
@@ -93,38 +92,3 @@ class LayoutScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-// bottomNavigationBar: BottomNavigationBar(
-          //   currentIndex: layoutCubit.currentIndex,
-          //   onTap: (value) {
-          // print(layoutCubit.currentIndex);
-          // layoutCubit.onTap(value);
-          //   },
-          //   selectedItemColor: AppColors.colorOfBottomNavBarSelected,
-          //   items: [
-          //     BottomNavigationBarItem(
-          // icon: layoutCubit.currentIndex == 0
-          //     ? Image.asset(AppAssets.homeIconSelectedPng)
-          //     : Image.asset(AppAssets.homeIconUnSelectedPng),
-          // label: layoutCubit.currentIndex == 0 ? 'Home' : '',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: layoutCubit.currentIndex == 1
-          //           ? Image.asset(AppAssets.productIconSelectedPng)
-          //           : Image.asset(AppAssets.productIconUnSelectedPng),
-          //       label: layoutCubit.currentIndex == 1 ? 'Products' : '',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: layoutCubit.currentIndex == 2
-          //           ? Image.asset(AppAssets.cartIconSelectedPng)
-          //           : Image.asset(AppAssets.cartIconUnSelectedPng),
-          //       label: layoutCubit.currentIndex == 2 ? 'Cart' : '',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Image.asset(AppAssets.profileIconUnSelectedPng),
-          //       label: layoutCubit.currentIndex == 3 ? 'Profile' : '',
-          //     ),
-          //   ],
-          // ),
