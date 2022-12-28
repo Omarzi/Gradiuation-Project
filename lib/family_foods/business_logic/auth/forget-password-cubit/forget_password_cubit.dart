@@ -34,7 +34,9 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     required String email,
     required BuildContext context,
   }) {
+    log('Start Loading');
     emit(ForgetPasswordLoadingState());
+    log('End Loading');
     dioHelper.postData(endPoint: forgetPassword, body: {
       "email": email,
     }).then((value) {
@@ -58,22 +60,23 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   // -------------------- //
   // End Send Email //
 
-
   // -------------------- //
   // Start Get 6 Digits //
 
   void sixDigits({required BuildContext context}) {
-    // emit(const GetForgetPasswordState(forgetState_: States.loading));
-    emit(ForgetPasswordLoadingState());
+    emit(SendSixDigitsLoadingState());
     dioHelper.postData(endPoint: reset, body: {
       "OTP": otbController.text,
       "email": emailController.text
     }).then((value) {
       MyCache.putString(key: MyCacheKeys.myId, value: value.data['id']);
+      emit(SendSixDigitsSucessState());
+      flutterToast(
+        msg: 'Success',
+        color: AppColors.primaryColor,
+      );
       Navigator.pushNamedAndRemoveUntil(
           context, 'createNewPasswordScreen', (route) => false);
-      emit(const GetForgetPasswordState(forgetState_: States.success));
-      print("Sucess in OTP");
     }).catchError((onError) {
       if (onError.response.statusCode == 403) {
         emit(const GetForgetPasswordState(forgetState_: States.error));
@@ -86,7 +89,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   // -------------------- //
   // End Get 6 Digits //
 
-
   // -------------------- //
   // Start Update Password //
 
@@ -94,28 +96,25 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     required String newPassword,
     required BuildContext context,
   }) {
-    emit(const GetForgetPasswordState(forgetState_: States.loading));
+    emit(UpdateNewPasswordLoadingState());
     dioHelper.postData(endPoint: updatePassword, body: {
       "id": MyCache.getString(key: MyCacheKeys.myId),
       "newPassword": newPassword,
     }).then((value) {
-      print('===============');
-      print(value.data);
-      print('===============');
-      emit(ForgetPasswordSuccessState());
-      log(value.statusCode.toString());
-      if(value.data != null) {
-        Navigator.pushNamedAndRemoveUntil(
-          context, 'loginScreen', (route) => false);
+      emit(UpdateNewPasswordSuccessState());
+      flutterToast(
+        msg: 'Success',
+        color: AppColors.primaryColor,
+      );
       flutterToast(
         msg: 'Update Success',
         color: AppColors.primaryColor,
       );
-      }
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'loginScreen', (route) => false);
     }).catchError((error) {
       emit(ForgetPasswordErrorState(
           error: "Some Thing Error in Catch Error in confirm Password"));
-      // emit(const GetForgetPasswordState(forgetState_: States.error));
     });
   }
 

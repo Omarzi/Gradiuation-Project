@@ -1,9 +1,9 @@
 // ignore_for_file: depend_on_referenced_packages, implementation_imports, unnecessary_import
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/src/bloc_provider.dart';
-import 'package:graduation_project/family_foods/business_logic/auth/forget-password/forget_password_cubit.dart';
-import 'package:graduation_project/family_foods/business_logic/auth/login/login_cubit.dart';
-import 'package:graduation_project/family_foods/business_logic/auth/register/register_cubit.dart';
+import 'package:graduation_project/family_foods/business_logic/auth/forget-password-cubit/forget_password_cubit.dart';
+import 'package:graduation_project/family_foods/business_logic/auth/login-cubit/login_cubit.dart';
+import 'package:graduation_project/family_foods/business_logic/auth/register-cubit/register_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/report/report_cubit.dart';
 

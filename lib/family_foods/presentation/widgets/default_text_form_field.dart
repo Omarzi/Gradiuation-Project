@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:graduation_project/family_foods/business_logic/auth/login/login_cubit.dart';
+import 'package:graduation_project/family_foods/business_logic/auth/login-cubit/login_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -49,7 +49,6 @@ class AuthCubit extends Cubit<AuthState> {
       if (value.data == null) {
         emit(LoginErrorState(error: 'Something Error because Data is Null'));
       } else if (value.data['username'] != null) {
-        // print(MyCacheKeys.token.toString());
         MyCache.putString(key: MyCacheKeys.token, value: value.data['token']);
         MyCache.putString(key: MyCacheKeys.myUserName, value: value.data['username']);
         emit(LoginSuccessState(loginModel: LoginModel.fromJson(value.data)));

@@ -34,24 +34,10 @@ class ForgetPasswordErrorState extends ForgetPasswordState {
 }
 
 // Send 6 Digits
-class SendSixDigitsLoadingState extends ForgetPasswordState {
-  final String otb_;
-
-  const SendSixDigitsLoadingState({
-    required this.otb_,
-  }) : super(otb: otb_);
-}
+class SendSixDigitsLoadingState extends ForgetPasswordState {}
 
 class SendSixDigitsSucessState extends ForgetPasswordState {
-  SixDigits sixDigits;
-  final String id_;
-
-  final String email_;
-  SendSixDigitsSucessState({
-    required this.sixDigits,
-    required this.email_,
-    required this.id_,
-  }) : super(email: email_, id: id_);
+  
 }
 
 class SendSixDigitsErrorState extends ForgetPasswordState {}

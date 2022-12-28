@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 // ------------ //
 
@@ -46,8 +45,17 @@ Widget buildNoInternetWidget() {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 20.h),
+          SizedBox(height: 15.h),
+
+          Icon(
+            Icons.wifi_off_outlined,
+            size: 50.sp,
+            color: AppColors.primaryColor,
+          ),
+          SizedBox(height: 10.h),
+
           Text(
             "Can't connect .. check internet",
             style: TextStyle(
@@ -56,7 +64,12 @@ Widget buildNoInternetWidget() {
               fontWeight: FontWeight.w600,
             ),
           ),
-          SvgPicture.asset(AppAssets.noInternetSvg),
+
+          // SvgPicture.asset(AppAssets.noInternetSvg),
+          SizedBox(height: 10.h),
+          CircularProgressIndicator(
+            color: AppColors.primaryColor,
+          ),
         ],
       ),
     ),

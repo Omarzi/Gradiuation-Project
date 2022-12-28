@@ -65,7 +65,7 @@ class RouteGenerator {
           settings: settings,
           reverseDuration: const Duration(milliseconds: 200),
         );
-      case 'sendSixDigits':
+      case 'sendSixDigitsScreen':
         return PageTransition(
           child: SendSixDigits(),
           type: PageTransitionType.fade,

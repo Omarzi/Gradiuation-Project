@@ -11,6 +11,7 @@ import 'package:graduation_project/family_foods/presentation/screens/auth/login/
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sizer/sizer.dart';
+import 'package:connectivity/connectivity.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -19,77 +20,95 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          AppAssets.logoSplashScreenPng,
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.fill,
-        ),
-        Scaffold(
-          backgroundColor: AppColors.transparentColor,
-          body: OfflineBuilder(
-            connectivityBuilder: (
-              BuildContext context,
-              ConnectivityResult connectivity,
-              Widget child,
-            ) {
-              final bool connected = connectivity != ConnectivityResult.none;
+    return StreamBuilder(
+        stream: Connectivity().onConnectivityChanged,
+        builder: (context, snapshot) {
+          return Stack(
+            children: [
+              Image.asset(
+                AppAssets.logoSplashScreenPng,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
+              snapshot.data == ConnectivityResult.none
+                  ? Scaffold(
+                      backgroundColor: AppColors.transparentColor,
+                      body: buildNoInternetWidget(),
+                    )
+                  : Scaffold(
+                      backgroundColor: AppColors.transparentColor,
+                      body: OfflineBuilder(
+                        connectivityBuilder: (
+                          BuildContext context,
+                          ConnectivityResult connectivity,
+                          Widget child,
+                        ) {
+                          final bool connected =
+                              connectivity != ConnectivityResult.none;
 
-              if (connected) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.w,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 2),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: LinearPercentIndicator(
-                          animation: true,
-                          lineHeight: 7.0,
-                          animationDuration: 2500,
-                          percent: 1,
-                          barRadius: const Radius.circular(50),
-                          progressColor: AppColors.primaryColor,
-                          onAnimationEnd: () {
-                            log("==============");
-                            log(MyCache.getString(key: MyCacheKeys.token));
-                            if (MyCache.getString(key: MyCacheKeys.token) ==
-                                "") {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            } else {
-                              log('Home Layout');
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LayoutScreen(),
-                                ),
-                              );
-                            }
-                          },
-                        ),
+                          if (connected) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              2),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: LinearPercentIndicator(
+                                      animation: true,
+                                      lineHeight: 7.0,
+                                      animationDuration: 2500,
+                                      percent: 1,
+                                      barRadius: const Radius.circular(50),
+                                      progressColor: AppColors.primaryColor,
+                                      onAnimationEnd: () {
+                                        log("==============");
+                                        log(MyCache.getString(
+                                            key: MyCacheKeys.token));
+                                        if (MyCache.getString(
+                                                key: MyCacheKeys.token) ==
+                                            "") {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginScreen(),
+                                            ),
+                                          );
+                                        } else {
+                                          log('Home Layout');
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LayoutScreen(),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return buildNoInternetWidget();
+                          }
+                        },
+                        child: showLoadingIndicator(),
                       ),
-                    ],
-                  ),
-                );
-              } else {
-                return buildNoInternetWidget();
-              }
-            },
-            child: showLoadingIndicator(),
-          ),
-        ),
-      ],
-    );
+                    ),
+            ],
+          );
+        });
   }
 }
