@@ -14,8 +14,8 @@ import 'package:connectivity/connectivity.dart';
 class CreateNewPasswordScreen extends StatelessWidget {
   final String? id;
 
-  TextEditingController? passwordController;
-  TextEditingController? confirmPasswordController;
+  TextEditingController newPasswordController  = TextEditingController();
+  TextEditingController updatePasswordController = TextEditingController();
 
   final GlobalKey<FormState> createNewPasswordKey = GlobalKey<FormState>();
 
@@ -85,7 +85,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                                     hintText: 'Password',
                                     imagePreffixIcon: AppAssets.passwordIconPng,
                                     imageSuffixIcon: AppAssets.eyeIconPng,
-                                    textEditingController: passwordController,
+                                    textEditingController: newPasswordController,
                                     textInputType:
                                         TextInputType.visiblePassword,
                                     validator: (value) {
@@ -95,9 +95,9 @@ class CreateNewPasswordScreen extends StatelessWidget {
                                         return 'Please Confirm Password is Week';
                                       }
                                     },
-                                    onChanged: (value) {
-                                      newPassword = value;
-                                    },
+                                    // onChanged: (value) {
+                                    //   newPassword = value;
+                                    // },
                                   ),
                                 ),
                                 SizedBox(height: 2.5.h),
@@ -110,7 +110,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                                     imagePreffixIcon: AppAssets.passwordIconPng,
                                     imageSuffixIcon: AppAssets.eyeIconPng,
                                     textEditingController:
-                                        confirmPasswordController,
+                                        updatePasswordController,
                                     textInputType:
                                         TextInputType.visiblePassword,
                                     validator: (value) {
@@ -123,9 +123,9 @@ class CreateNewPasswordScreen extends StatelessWidget {
                                         return "Confirm Password is'nt Similar Password";
                                       }
                                     },
-                                    onChanged: (value) {
-                                      updateNewPassword = value;
-                                    },
+                                    // onChanged: (value) {
+                                    //   updateNewPassword = value;
+                                    // },
                                   ),
                                 ),
                                 SizedBox(height: 6.h),
@@ -150,7 +150,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                                             .validate()) {
                                           updatePasswordCubit
                                               .updateNewPasswordInForgetPassword(
-                                            newPassword: newPassword!,
+                                            newPassword: newPasswordController.text,
                                             context: context,
                                           );
                                         }

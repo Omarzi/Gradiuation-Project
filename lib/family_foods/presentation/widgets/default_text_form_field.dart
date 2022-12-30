@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DefaultTextFormField extends StatelessWidget {
   Function validator;
-  Function onChanged;
-  final TextEditingController? textEditingController;
+  // Function onChanged;
+  final TextEditingController textEditingController;
   final TextInputType textInputType;
   final String imagePreffixIcon;
   final String? imageSuffixIcon;
@@ -22,8 +22,8 @@ class DefaultTextFormField extends StatelessWidget {
   DefaultTextFormField({
     Key? key,
     required this.validator,
-    required this.onChanged,
-    this.textEditingController,
+    // required this.onChanged,
+    required this.textEditingController,
     required this.textInputType,
     required this.imagePreffixIcon,
     required this.imageSuffixIcon,
@@ -39,7 +39,7 @@ class DefaultTextFormField extends StatelessWidget {
         AuthCubit cubit = AuthCubit.get(context);
         return TextFormField(
           validator: (value) => validator(value),
-          onChanged: (value) => onChanged(value),
+          // onChanged: (value) => onChanged(value),
           controller: textEditingController,
           keyboardType: textInputType,
           obscureText: isPasswordField == true

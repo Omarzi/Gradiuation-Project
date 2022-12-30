@@ -102,9 +102,9 @@ class SendPasswordScreen extends StatelessWidget {
                                         return 'Please Enter Valid as example@gmail.com';
                                       }
                                     },
-                                    onChanged: (value) {
-                                      email = value;
-                                    },
+                                    // onChanged: (value) {
+                                    //   email = value;
+                                    // },
                                     textInputType: TextInputType.emailAddress,
                                     imagePreffixIcon: AppAssets.emailIconPng,
                                     imageSuffixIcon: '',
@@ -133,7 +133,7 @@ class SendPasswordScreen extends StatelessWidget {
                                             .validate()) {
                                           forgetPasswordCubit
                                               .sendEmailInForgetPassword(
-                                            email: email!,
+                                            email: forgetPasswordCubit.emailController.text,
                                             context: context,
                                           );
                                         }

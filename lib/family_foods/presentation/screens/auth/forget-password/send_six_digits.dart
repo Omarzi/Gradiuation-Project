@@ -90,9 +90,9 @@ class SendSixDigits extends StatelessWidget {
                               return 'Please Enter The Digits';
                             }
                           },
-                          onChanged: (value) {
-                            digits = value;
-                          },
+                          // onChanged: (value) {
+                          //   digits = value;
+                          // },
                           textInputType: TextInputType.emailAddress,
                           imagePreffixIcon: AppAssets.emailIconPng,
                           imageSuffixIcon: '',

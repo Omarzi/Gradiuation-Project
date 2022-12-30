@@ -14,11 +14,11 @@ import 'package:connectivity/connectivity.dart';
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
-  TextEditingController? userNameController;
-  TextEditingController? emailController;
-  TextEditingController? passwordController;
-  TextEditingController? confirmPasswordController;
-  TextEditingController? phoneController;
+  TextEditingController userNameController  = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   final GlobalKey<FormState> registerKey = GlobalKey<FormState>();
 
@@ -105,9 +105,9 @@ class RegisterScreen extends StatelessWidget {
                                             return 'Please The Name is Week';
                                           }
                                         },
-                                        onChanged: (value) {
-                                          username = value;
-                                        },
+                                        // onChanged: (value) {
+                                        //   username = value;
+                                        // },
                                       ),
                                       SizedBox(height: 2.5.h),
                                       DefaultTextFormField(
@@ -128,9 +128,9 @@ class RegisterScreen extends StatelessWidget {
                                             return 'Please Enter Valid as example@gmail.com';
                                           }
                                         },
-                                        onChanged: (value) {
-                                          email = value;
-                                        },
+                                        // onChanged: (value) {
+                                        //   email = value;
+                                        // },
                                       ),
                                       SizedBox(height: 2.5.h),
                                       DefaultTextFormField(
@@ -150,9 +150,9 @@ class RegisterScreen extends StatelessWidget {
                                             return 'Please Password is Week';
                                           }
                                         },
-                                        onChanged: (value) {
-                                          password = value;
-                                        },
+                                        // onChanged: (value) {
+                                        //   password = value;
+                                        // },
                                       ),
                                       SizedBox(height: 2.5.h),
                                       DefaultTextFormField(
@@ -176,9 +176,9 @@ class RegisterScreen extends StatelessWidget {
                                             return "Confirm Password is'nt Similar Password";
                                           }
                                         },
-                                        onChanged: (value) {
-                                          confirmPassword = value;
-                                        },
+                                        // onChanged: (value) {
+                                        //   confirmPassword = value;
+                                        // },
                                       ),
                                       SizedBox(height: 2.5.h),
                                       DefaultTextFormField(
@@ -196,9 +196,9 @@ class RegisterScreen extends StatelessWidget {
                                             return 'Please Enter Valid Phone Number';
                                           }
                                         },
-                                        onChanged: (value) {
-                                          phone = value;
-                                        },
+                                        // onChanged: (value) {
+                                        //   phone = value;
+                                        // },
                                       ),
                                       SizedBox(height: 3.8.h),
                                       if (state is RegisterLoadingState)
@@ -218,12 +218,12 @@ class RegisterScreen extends StatelessWidget {
                                               if (registerKey.currentState!
                                                   .validate()) {
                                                 await registerCubit.signup(
-                                                  username: username!,
-                                                  email: email!,
-                                                  phone: phone!,
-                                                  password: password!,
+                                                  username: userNameController.text,
+                                                  email: emailController.text,
+                                                  phone: phoneController.text,
+                                                  password: passwordController.text,
                                                   confirmPassword:
-                                                      confirmPassword!,
+                                                      confirmPasswordController.text,
                                                   context: context,
                                                 );
                                               }

@@ -43,18 +43,12 @@ class AuthCubit extends Cubit<AuthState> {
       "phone": phone,
       "password": password,
     }).then((value) {
-      print('===============');
-      print(value.data);
-      print('===============');
-      if (value.data == null) {
-        emit(LoginErrorState(error: 'Something Error because Data is Null'));
-      } else if (value.data['username'] != null) {
+      debugPrint(value.data.toString());
         MyCache.putString(key: MyCacheKeys.token, value: value.data['token']);
-        MyCache.putString(key: MyCacheKeys.myUserName, value: value.data['username']);
+        MyCache.putString(
+            key: MyCacheKeys.myUserName, value: value.data['username']);
+        MyCache.putInt(key: MyCacheKeys.roles, value: value.data['roles']);
         emit(LoginSuccessState(loginModel: LoginModel.fromJson(value.data)));
-      } else {
-        emit(LoginErrorState(error: 'Invalid Data'));
-      }
     }).catchError((error) {
       print(error);
       emit(LoginErrorState(error: "Some Thing Error in Catch Error"));
@@ -66,14 +60,14 @@ class AuthCubit extends Cubit<AuthState> {
     required BuildContext context,
   }) async {
     emit(LogoutLoadingState());
-    log('Logout Success======================');
+    log('Logout Success');
     await dioHelper
         .getData(endPoint: logout)
         .then(
           (value) => {
             print(value.statusCode),
-                MyCache.clearShared(),
-                emit(LogoutSuccessState()),
+            MyCache.clearShared(),
+            emit(LogoutSuccessState()),
           },
         )
         .catchError(

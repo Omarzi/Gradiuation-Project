@@ -17,6 +17,7 @@ class DioHelper {
         headers: {
           "authorization":
               "Bearer ${MyCache.getString(key: MyCacheKeys.token)}",
+          "Content-Type": "multipart/form-data",    
         },
       ),
     );
@@ -38,8 +39,8 @@ class DioHelper {
       if (response.statusCode == 204 ||
           response.statusCode == 200 ||
           response.statusCode == 201) {
-      } else if (response.statusCode == 403){
-          print(response.data);
+      } else if (response.statusCode == 403) {
+        print(response.data);
       }
       return response;
     } on DioError catch (error) {

@@ -23,8 +23,8 @@ class LayoutScreen extends StatelessWidget {
 
   List<Widget> tabs = [
     HomeScreen(),
-    const CartScreen(),
     const ProductScreen(),
+    const CartScreen(),
     const ProfileScreen(),
   ];
 

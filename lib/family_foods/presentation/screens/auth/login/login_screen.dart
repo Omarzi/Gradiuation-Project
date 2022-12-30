@@ -18,15 +18,15 @@ import 'package:connectivity/connectivity.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  TextEditingController? emailController;
+  TextEditingController emailController = TextEditingController();
 
-  TextEditingController? passwordController;
+  TextEditingController passwordController = TextEditingController();
 
-  TextEditingController? phoneController;
+  TextEditingController phoneController = TextEditingController();
 
   final GlobalKey<FormState> loginKey = GlobalKey<FormState>();
 
-  String? email, phone, password;
+  // String? email, phone, password;
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +98,7 @@ class LoginScreen extends StatelessWidget {
                                       imagePreffixIcon: AppAssets.emailIconPng,
                                       imageSuffixIcon: '',
                                       textInputType: TextInputType.emailAddress,
+                                      textEditingController: emailController,
                                       validator: (value) {
                                         if (value.isEmpty) {
                                           return 'Please Enter Your Email';
@@ -107,9 +108,9 @@ class LoginScreen extends StatelessWidget {
                                           return 'Please Enter Valid as example@gmail.com';
                                         }
                                       },
-                                      onChanged: (value) {
-                                        email = value;
-                                      },
+                                      // onChanged: (value) {
+                                      //   email = value;
+                                      // },
                                     ),
                                     SizedBox(height: 2.5.h),
                                     DefaultTextFormField(
@@ -128,9 +129,9 @@ class LoginScreen extends StatelessWidget {
                                           return 'Please Confirm Password is Week';
                                         }
                                       },
-                                      onChanged: (value) {
-                                        password = value;
-                                      },
+                                      // onChanged: (value) {
+                                      //   password = value;
+                                      // },
                                     ),
                                     SizedBox(height: 2.5.h),
                                     DefaultTextFormField(
@@ -147,9 +148,9 @@ class LoginScreen extends StatelessWidget {
                                           return 'Please Confirm Password is Week';
                                         }
                                       },
-                                      onChanged: (value) {
-                                        phone = value;
-                                      },
+                                      // onChanged: (value) {
+                                      //   phone = value;
+                                      // },
                                     ),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -197,9 +198,9 @@ class LoginScreen extends StatelessWidget {
                                           if (loginKey.currentState!
                                               .validate()) {
                                             loginCubit.signIn(
-                                              email: email!,
-                                              phone: phone!,
-                                              password: password!,
+                                              email: emailController.text,
+                                              phone: phoneController.text,
+                                              password: passwordController.text,
                                               context: context,
                                             );
                                           }
