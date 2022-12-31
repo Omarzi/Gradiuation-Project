@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
 import 'package:graduation_project/core/utils/app_assets.dart';
+import 'package:graduation_project/family_foods/business_logic/layout/cubit/get_all_products/get_all_products_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/modules/cart/cart_screen.dart';
 import 'package:graduation_project/family_foods/presentation/modules/home/home_screen.dart';
@@ -34,73 +35,78 @@ class LayoutScreen extends StatelessWidget {
       builder: (context, state) {
         LayoutCubit layoutCubit = LayoutCubit.get(context);
         return StreamBuilder(
-            stream: Connectivity().onConnectivityChanged,
-            builder: ((context, snapshot) {
-              return Stack(
-                children: [
-                  Image.asset(
-                    AppAssets.mainBackgroundPng,
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.fill,
-                  ),
-                  snapshot.data == ConnectivityResult.none
-                      ? Scaffold(
-                          backgroundColor: AppColors.transparentColor,
-                          body: buildNoInternetWidget(),
-                        )
-                      : Scaffold(
-                          key: scaffoldKey,
-                          backgroundColor: AppColors.transparentColor,
-                          drawer: const DefaultDrawer(),
-                          appBar: PreferredSize(
-                            preferredSize: Size(double.infinity, 7.h),
-                            child: DefaultAppBarInAllScreens(
-                                scaffoldKey: scaffoldKey),
-                          ),
-                          body: tabs[layoutCubit.currentIndex],
-                          bottomNavigationBar: FloatingNavbar(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: 3.w,
-                              vertical: 0.h,
-                            ),
-                            onTap: (int value) {
-                              print(layoutCubit.currentIndex);
-                              layoutCubit.onTap(value);
-                            },
-                            fontSize: 11.sp,
-                            selectedBackgroundColor: AppColors.transparentColor,
-                            unselectedItemColor:
-                                AppColors.colorOfBottomNavBarUnSelected,
-                            selectedItemColor:
-                                AppColors.colorOfBottomNavBarSelected,
-                            borderRadius: 15.sp,
-                            currentIndex: layoutCubit.currentIndex,
-                            iconSize: 20.sp,
-                            backgroundColor: const Color(0xFFF5F8FA),
-                            items: [
-                              FloatingNavbarItem(
-                                icon: Iconsax.home_1,
-                                title: 'Home',
-                              ),
-                              FloatingNavbarItem(
-                                icon: Iconsax.category,
-                                title: 'Products',
-                              ),
-                              FloatingNavbarItem(
-                                icon: Iconsax.shopping_cart,
-                                title: 'Cart',
-                              ),
-                              FloatingNavbarItem(
-                                icon: Iconsax.profile_circle,
-                                title: 'Profile',
-                              ),
-                            ],
-                          ),
+          stream: Connectivity().onConnectivityChanged,
+          builder: ((context, snapshot) {
+            return Stack(
+              children: [
+                Image.asset(
+                  AppAssets.mainBackgroundPng,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.fill,
+                ),
+                snapshot.data == ConnectivityResult.none
+                    ? Scaffold(
+                        backgroundColor: AppColors.transparentColor,
+                        body: buildNoInternetWidget(),
+                      )
+                    : Scaffold(
+                        key: scaffoldKey,
+                        backgroundColor: AppColors.transparentColor,
+                        drawer: const DefaultDrawer(),
+                        appBar: PreferredSize(
+                          preferredSize: Size(double.infinity, 7.h),
+                          child: DefaultAppBarInAllScreens(
+                              scaffoldKey: scaffoldKey),
                         ),
-                ],
-              );
-            }));
+                        body: tabs[layoutCubit.currentIndex],
+                        bottomNavigationBar: FloatingNavbar(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 3.w,
+                            vertical: 0.h,
+                          ),
+                          onTap: (int value) async {
+                            print(layoutCubit.currentIndex);
+                            layoutCubit.onTap(value);
+                            // if (value == 1) {
+                            //   await GetAllProductsCubit.get(context)
+                            //       .getAllUserCart;
+                            // }
+                          },
+                          fontSize: 11.sp,
+                          selectedBackgroundColor: AppColors.transparentColor,
+                          unselectedItemColor:
+                              AppColors.colorOfBottomNavBarUnSelected,
+                          selectedItemColor:
+                              AppColors.colorOfBottomNavBarSelected,
+                          borderRadius: 15.sp,
+                          currentIndex: layoutCubit.currentIndex,
+                          iconSize: 20.sp,
+                          backgroundColor: const Color(0xFFF5F8FA),
+                          items: [
+                            FloatingNavbarItem(
+                              icon: Iconsax.home_1,
+                              title: 'Home',
+                            ),
+                            FloatingNavbarItem(
+                              icon: Iconsax.category,
+                              title: 'Products',
+                            ),
+                            FloatingNavbarItem(
+                              icon: Iconsax.shopping_cart,
+                              title: 'Cart',
+                            ),
+                            FloatingNavbarItem(
+                              icon: Iconsax.profile_circle,
+                              title: 'Profile',
+                            ),
+                          ],
+                        ),
+                      ),
+              ],
+            );
+          }),
+        );
       },
     );
   }

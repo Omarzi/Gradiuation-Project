@@ -12,6 +12,7 @@ class AppColors {
   static final balckColor2Played = HexColor('#6E6E6E');
   static final colorOfBottomNavBarSelected = HexColor('#6BE6C4');
   static final colorOfBottomNavBarUnSelected = HexColor('#97AABD');
+  static final colorOfCurserInSearchBar = HexColor("#343A40");
 
   /// Constant Colors
   static const transparentColor = Colors.transparent;

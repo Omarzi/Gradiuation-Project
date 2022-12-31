@@ -57,6 +57,37 @@ class DefaultAppBarInAllScreens extends StatelessWidget {
         ),
       ),
       actions: [
+        Stack(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: AppColors.blackColorPlayed,
+              ),
+            ),
+            Positioned(
+              top: -14,
+              left: 8,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Text(
+                    '1',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         IconButton(
           onPressed: () {},
           icon: Image.asset(

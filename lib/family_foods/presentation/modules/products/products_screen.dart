@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
 import 'package:graduation_project/core/utils/end_points.dart';
+import 'package:graduation_project/data/Models/layout/get_all_products/get_all_product.dart';
 import 'package:graduation_project/family_foods/business_logic/layout/cubit/get_all_products/get_all_products_cubit.dart';
+import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,8 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetAllProductsCubit, GetAllProductsState>(
+    return BlocConsumer<GetAllProductsCubit, GetAllProductsState>(
+      listener: (context, state) {},
       builder: (context, state) {
         GetAllProductsCubit getAllProductsCubit =
             GetAllProductsCubit.get(context);
@@ -38,7 +41,7 @@ class ProductScreen extends StatelessWidget {
           return RefreshIndicator(
             color: AppColors.primaryColor,
             onRefresh: () async {
-              return await getAllProductsCubit.getAllProducts(context: context);
+              return await getAllProductsCubit.getAllProducts();
             },
             child: Container(
               width: double.infinity,
@@ -48,15 +51,12 @@ class ProductScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 5,
-                  childAspectRatio: 0.6,
+                  childAspectRatio: 0.4,
                 ),
-                itemCount: state.getAllProductsModel.length,
+                itemCount: getAllProductsCubit.products.length,
                 itemBuilder: (context, index) {
                   String img =
-                      '$baseUrl${getAllProductsCubit.getAllProductsModel.products![index].img}';
-                  print(getAllProductsCubit
-                      .getAllProductsModel.products![index].iV!
-                      .toString());
+                      '$baseUrl${getAllProductsCubit.products[index].img}';
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -78,8 +78,7 @@ class ProductScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            getAllProductsCubit
-                                .getAllProductsModel.products![index].name!,
+                            getAllProductsCubit.products[index].name!,
                             style: TextStyle(
                               fontSize: 25,
                               color: AppColors.balckColor2Played,
@@ -87,7 +86,7 @@ class ProductScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${getAllProductsCubit.getAllProductsModel.products![index].price!}'
+                            '${getAllProductsCubit.products[index].price!}'
                                 .toString(),
                             style: TextStyle(
                               fontSize: 18,
@@ -99,12 +98,63 @@ class ProductScreen extends StatelessWidget {
                       ),
                       Text(
                         getAllProductsCubit
-                            .getAllProductsModel.products![index].expDate!,
+                            .products[index].expDate!,
                         style: TextStyle(
                           fontSize: 20,
                           color: AppColors.colorOfBottomNavBarSelected,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.black.withOpacity(0.2),
+                            ),
+                            child: BlocConsumer<LayoutCubit, LayoutState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.remove,
+                                    color: Colors.red,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.black.withOpacity(0.2),
+                            ),
+                            child: BlocConsumer<LayoutCubit, LayoutState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return IconButton(
+                                  onPressed: () {
+                                    LayoutCubit.get(context).addToCart(
+                                      productid: getAllProductsCubit
+                                          .products[index]
+                                          .sId!,
+                                      quantity: 50.toString(),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   );
@@ -113,14 +163,7 @@ class ProductScreen extends StatelessWidget {
             ),
           );
         } else {
-          return Text(
-            'No Items Founded',
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor,
-            ),
-          );
+          return loading();
         }
       },
     );

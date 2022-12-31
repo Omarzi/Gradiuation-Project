@@ -17,7 +17,6 @@ class DioHelper {
         headers: {
           "authorization":
               "Bearer ${MyCache.getString(key: MyCacheKeys.token)}",
-          "Content-Type": "multipart/form-data",    
         },
       ),
     );
@@ -29,11 +28,17 @@ class DioHelper {
     bool handleError = true,
     required String endPoint,
     Map<String, dynamic>? body,
+    String? token,
   }) async {
     try {
       Response response = await dio.post(
         baseUrl + endPoint,
         data: body,
+        options: Options(
+          headers: {
+            "authorization": "Bearer $token",
+          },
+        ),
       );
       print(response.data);
       if (response.statusCode == 204 ||

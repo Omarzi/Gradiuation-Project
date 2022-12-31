@@ -8,3 +8,13 @@ abstract class LayoutState {}
 class LayoutInitialState extends LayoutState {}
 
 class LayoutSuccessState extends LayoutState {}
+
+// Cart States //
+
+class AddToCartLoadingState extends LayoutState {}
+
+class AddToCartSuccessState extends LayoutState {}
+
+class AddToCartErrorState extends LayoutState {}
+
+

@@ -9,10 +9,19 @@ class GetAllProductsInitialState extends GetAllProductsState {}
 class GetAllProductsLoadingState extends GetAllProductsState {}
 
 class GetAllProductsSuccessState extends GetAllProductsState {
-  List<Products> getAllProductsModel; 
-  GetAllProductsSuccessState({
-    required this.getAllProductsModel,
-  });
+  // List<Products> getAllProductsModel;
+  // GetAllProductsSuccessState({
+  //   required this.getAllProductsModel,
+  // });
 }
 
 class GetAllProductsErrorState extends GetAllProductsState {}
+
+// ---------- //
+// Cart Screen //
+
+class GetAllCartLoadingState extends GetAllProductsState {}
+
+class GetAllCartSuccessState extends GetAllProductsState {}
+
+class GetAllCartErrorState extends GetAllProductsState {}

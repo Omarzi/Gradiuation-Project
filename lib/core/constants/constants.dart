@@ -8,6 +8,8 @@ import 'package:graduation_project/family_foods/business_logic/layout/cubit/get_
 import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/report/report_cubit.dart';
 
+import '../../family_foods/business_logic/layout/cubit/get_all_user_cart/get_all_user_cart_cubit.dart';
+
 //----------------------//
 // Start Base Images //
 
@@ -36,8 +38,11 @@ List<BlocProviderSingleChildWidget> cubits = [
   BlocProvider(
     create: (context) => LayoutCubit(),
   ),
+  // ignore: todo
+  // TODO : possible exist Error
   BlocProvider(
-    create: (context) => GetAllProductsCubit()..getAllProducts(context: context),
+    // create: (context) => GetAllProductsCubit()..getAllProducts()..getAllUserCart()
+    create: (context) => GetAllProductsCubit()..getAllProducts(),
   ),
 ];
 
