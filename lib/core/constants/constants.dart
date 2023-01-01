@@ -40,10 +40,10 @@ List<BlocProviderSingleChildWidget> cubits = [
   ),
   // ignore: todo
   // TODO : possible exist Error
-  BlocProvider(
-    // create: (context) => GetAllProductsCubit()..getAllProducts()..getAllUserCart()
-    create: (context) => GetAllProductsCubit()..getAllProducts(),
-  ),
+  // BlocProvider(
+  //   // create: (context) => GetAllProductsCubit()..getAllProducts()..getAllUserCart()
+  //   create: (context) => GetAllProductsCubit()..getAllProducts(),
+  // ),
 ];
 
 // End Cubits //

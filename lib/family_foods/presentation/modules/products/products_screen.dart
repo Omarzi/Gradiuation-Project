@@ -14,158 +14,161 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GetAllProductsCubit, GetAllProductsState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        GetAllProductsCubit getAllProductsCubit =
-            GetAllProductsCubit.get(context);
-        if (state is GetAllProductsLoadingState) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) {
-                    return const SizedBox();
-                  },
-                  itemCount: 6,
+    return BlocProvider<GetAllProductsCubit>(
+      create: (context) => GetAllProductsCubit()
+        ..getAllProducts(),
+      child: BlocConsumer<GetAllProductsCubit, GetAllProductsState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          // const Duration(milliseconds: 200);
+          GetAllProductsCubit getAllProductsCubit =
+              GetAllProductsCubit.get(context);
+          if (state is GetAllProductsLoadingState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) {
+                      return const SizedBox();
+                    },
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return loading();
+                    },
+                  ),
+                ),
+              ],
+            );
+          } else if (state is GetAllProductsSuccessState) {
+            return RefreshIndicator(
+              color: AppColors.primaryColor,
+              onRefresh: () async {
+                return await getAllProductsCubit.getAllProducts();
+              },
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 4.w),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 5,
+                    childAspectRatio: 0.4,
+                  ),
+                  itemCount: getAllProductsCubit.products.length,
                   itemBuilder: (context, index) {
-                    return loading();
+                    String img =
+                        '$baseUrl${getAllProductsCubit.products[index].img}';
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            image: DecorationImage(
+                                image: NetworkImage(img), fit: BoxFit.cover),
+                          ),
+                        ),
+                        // child: Image.network(
+                        //   img,
+                        // ),
+                        // ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              getAllProductsCubit.products[index].name!,
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: AppColors.balckColor2Played,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${getAllProductsCubit.products[index].price!}'
+                                  .toString(),
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          getAllProductsCubit.products[index].expDate!,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: AppColors.colorOfBottomNavBarSelected,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                              child: BlocConsumer<LayoutCubit, LayoutState>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.remove,
+                                      color: Colors.red,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                              child: BlocConsumer<LayoutCubit, LayoutState>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return IconButton(
+                                    onPressed: () {
+                                      LayoutCubit.get(context).addToCart(
+                                        productid: getAllProductsCubit
+                                            .products[index].sId!,
+                                        quantity: 50.toString(),
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: AppColors.primaryColor,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
                   },
                 ),
               ),
-            ],
-          );
-        } else if (state is GetAllProductsSuccessState) {
-          return RefreshIndicator(
-            color: AppColors.primaryColor,
-            onRefresh: () async {
-              return await getAllProductsCubit.getAllProducts();
-            },
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 4.w),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 5,
-                  childAspectRatio: 0.4,
-                ),
-                itemCount: getAllProductsCubit.products.length,
-                itemBuilder: (context, index) {
-                  String img =
-                      '$baseUrl${getAllProductsCubit.products[index].img}';
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 150,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          image: DecorationImage(
-                              image: NetworkImage(img), fit: BoxFit.cover),
-                        ),
-                      ),
-                      // child: Image.network(
-                      //   img,
-                      // ),
-                      // ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            getAllProductsCubit.products[index].name!,
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: AppColors.balckColor2Played,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '${getAllProductsCubit.products[index].price!}'
-                                .toString(),
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: AppColors.primaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        getAllProductsCubit
-                            .products[index].expDate!,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: AppColors.colorOfBottomNavBarSelected,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: Colors.black.withOpacity(0.2),
-                            ),
-                            child: BlocConsumer<LayoutCubit, LayoutState>(
-                              listener: (context, state) {},
-                              builder: (context, state) {
-                                return IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.remove,
-                                    color: Colors.red,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: Colors.black.withOpacity(0.2),
-                            ),
-                            child: BlocConsumer<LayoutCubit, LayoutState>(
-                              listener: (context, state) {},
-                              builder: (context, state) {
-                                return IconButton(
-                                  onPressed: () {
-                                    LayoutCubit.get(context).addToCart(
-                                      productid: getAllProductsCubit
-                                          .products[index]
-                                          .sId!,
-                                      quantity: 50.toString(),
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          );
-        } else {
-          return loading();
-        }
-      },
+            );
+          } else {
+            return loading();
+          }
+        },
+      ),
     );
   }
 }

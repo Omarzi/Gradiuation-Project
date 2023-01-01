@@ -28,6 +28,7 @@ class GetAllProductsCubit extends Cubit<GetAllProductsState> {
     products = [];
     await dioHelper.getData(endPoint: getAllProductsEndPoint).then((value) {
       log(value.statusCode.toString());
+      print('Get All Products');
       value.data['Products'].forEach((product) {
         products.add(Products.fromJson(product));
       });
@@ -49,15 +50,17 @@ class GetAllProductsCubit extends Cubit<GetAllProductsState> {
   //       .getData(
   //           endPoint: getAllCarts + MyCache.getString(key: MyCacheKeys.myId))
   //       .then((value) async {
-  //     carts = await value.data['products'];
-  //     print(carts.toString());
-  //     // value.data['products'].forEach((cart) {
-  //     //   carts.add(CartModel.fromJson(cart));
-  //     // });
+  //     // carts = await value.data['products'];
+  //     // print(carts.toString());
+  //     print('Get All User Cart');
+  //     value.data['products'].forEach((cart) {
+  //       carts.add(CartModel.fromJson(cart));
+  //     });
   //     print(carts);
   //     emit(GetAllCartSuccessState());
   //   }).catchError((error) {
-  //     print("Error");
+
+  //     print("Error In Get All Cart");
   //     emit(GetAllCartErrorState());
   //   });
   // }

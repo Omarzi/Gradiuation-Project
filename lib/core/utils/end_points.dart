@@ -21,7 +21,7 @@ const String reportAProblem = 'user/report';
 // Products //
 
 const String getAllProductsEndPoint = 'products';
-const String getAllUserCartEndPoint = 'addToCart/';
+// const String getAllUserCartEndPoint = 'addToCart/';
 
 // ---- //
 
