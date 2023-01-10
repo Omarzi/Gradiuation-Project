@@ -41,27 +41,27 @@ class GetAllProductsCubit extends Cubit<GetAllProductsState> {
     });
   }
 
-  // List<CartModel> carts = [];
+  List<CartModel> carts = [];
 
-  // void getAllUserCart() {
-  //   emit(GetAllCartLoadingState());
-  //   carts = [];
-  //   dioHelper
-  //       .getData(
-  //           endPoint: getAllCarts + MyCache.getString(key: MyCacheKeys.myId))
-  //       .then((value) async {
-  //     // carts = await value.data['products'];
-  //     // print(carts.toString());
-  //     print('Get All User Cart');
-  //     value.data['products'].forEach((cart) {
-  //       carts.add(CartModel.fromJson(cart));
-  //     });
-  //     print(carts);
-  //     emit(GetAllCartSuccessState());
-  //   }).catchError((error) {
+  void getAllUserCart() {
+    emit(GetAllCartLoadingState());
+    carts = [];
+    dioHelper
+        .getData(
+            endPoint: getAllCarts + MyCache.getString(key: MyCacheKeys.myId))
+        .then((value) async {
+      // carts = await value.data['products'];
+      // print(carts.toString());
+      print('Get All User Cart');
+      value.data['products'].forEach((cart) {
+        carts.add(CartModel.fromJson(cart));
+      });
+      print(carts);
+      emit(GetAllCartSuccessState());
+    }).catchError((error) {
 
-  //     print("Error In Get All Cart");
-  //     emit(GetAllCartErrorState());
-  //   });
-  // }
+      print("Error In Get All Cart");
+      emit(GetAllCartErrorState());
+    });
+  }
 }

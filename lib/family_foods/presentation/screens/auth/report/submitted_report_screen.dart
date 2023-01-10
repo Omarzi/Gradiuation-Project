@@ -12,56 +12,42 @@ class SubmittedReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          AppAssets.mainBackgroundPng,
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.fill,
-        ),
-        Scaffold(
-          backgroundColor: AppColors.transparentColor,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.h),
-            child: const DefaultAppBarInAuth(),
-          ),
-          body: Column(
+    return Scaffold(
+      // backgroundColor: AppColors.transparentColor,
+      body: Column(
+        children: [
+          SizedBox(height: 16.h),
+          Image.asset(AppAssets.workingLogoPng),
+          SizedBox(height: 4.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 10.h),
-              Image.asset(AppAssets.workingLogoPng),
-              SizedBox(height: 4.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'WORKING ON IT',
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontSize: 25.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8.h),
-              DefaultButton(
-                bgColor: AppColors.primaryColor,
-                text: 'Back To Login Page',
-                textColor: AppColors.whiteColor,
-                fontSize: 13.sp,
-                size: Size(72.w, 6.8.h),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    'loginScreen',
-                  );
-                },
+              Text(
+                'WORKING ON IT',
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
-        ),
-      ],
+          SizedBox(height: 8.h),
+          DefaultButton(
+            bgColor: AppColors.primaryColor,
+            text: 'Back To Login Page',
+            textColor: AppColors.whiteColor,
+            fontSize: 13.sp,
+            size: Size(72.w, 6.8.h),
+            onPressed: () {
+              Navigator.pushReplacementNamed(
+                context,
+                'loginScreen',
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

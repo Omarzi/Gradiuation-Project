@@ -30,13 +30,20 @@ class RouteGenerator {
           settings: settings,
           reverseDuration: const Duration(milliseconds: 200),
         );
+      // case 'layoutAuth':
+      //   return PageTransition(
+      //     child: LayoutAuthScreen(),
+      //     type: PageTransitionType.fade,
+      //     settings: settings,
+      //     reverseDuration: const Duration(milliseconds: 200),
+      //   );
       case 'loginScreen':
-        return PageTransition(
-          child: LoginScreen(),
-          type: PageTransitionType.fade,
-          settings: settings,
-          reverseDuration: const Duration(milliseconds: 200),
-        );
+      return PageTransition(
+        child: LoginScreen(),
+        type: PageTransitionType.fade,
+        settings: settings,
+        reverseDuration: const Duration(milliseconds: 200),
+      );
       case 'registerScreen':
         return PageTransition(
           child: RegisterScreen(),
@@ -60,7 +67,7 @@ class RouteGenerator {
         );
       case 'sendPasswordScreen':
         return PageTransition(
-          child: SendPasswordScreen(),
+          child: SendEmailScreen(),
           type: PageTransitionType.fade,
           settings: settings,
           reverseDuration: const Duration(milliseconds: 200),

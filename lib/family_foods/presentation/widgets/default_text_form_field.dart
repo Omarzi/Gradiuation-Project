@@ -11,7 +11,7 @@ class DefaultTextFormField extends StatelessWidget {
   // Function onChanged;
   final TextEditingController textEditingController;
   final TextInputType textInputType;
-  final String imagePreffixIcon;
+  final String? imagePreffixIcon;
   final String? imageSuffixIcon;
   final String hintText;
   bool isPasswordField;
@@ -25,8 +25,8 @@ class DefaultTextFormField extends StatelessWidget {
     // required this.onChanged,
     required this.textEditingController,
     required this.textInputType,
-    required this.imagePreffixIcon,
-    required this.imageSuffixIcon,
+    this.imagePreffixIcon,
+    this.imageSuffixIcon,
     required this.hintText,
     this.isPasswordField = false,
     this.isObscureText = true,
@@ -50,7 +50,7 @@ class DefaultTextFormField extends StatelessWidget {
           cursorColor: AppColors.blackColorPlayed,
           decoration: InputDecoration(
             prefixIcon: Image.asset(
-              imagePreffixIcon,
+              imagePreffixIcon!,
               color: AppColors.blackColor,
             ),
             suffixIcon: isPasswordField
@@ -85,21 +85,21 @@ class DefaultTextFormField extends StatelessWidget {
                       )
                     : const SizedBox(),
             filled: true,
-            fillColor: AppColors.grey2ColorPlayed,
+            fillColor: AppColors.whiteColor,
             hintText: hintText,
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1.w,
-                color: AppColors.grey2ColorPlayed,
+                color: AppColors.grey2ColorPlayed.withOpacity(0.6),
               ),
-              borderRadius: BorderRadius.circular(50.0.sp),
+              // borderRadius: BorderRadius.circular(50.0.sp),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1.w,
-                color: AppColors.grey2ColorPlayed,
+                color: AppColors.grey2ColorPlayed.withOpacity(0.6),
               ),
-              borderRadius: BorderRadius.circular(50.0.sp),
+              // borderRadius: BorderRadius.circular(50.0.sp),
             ),
           ),
         );

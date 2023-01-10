@@ -26,8 +26,6 @@ class LoginScreen extends StatelessWidget {
 
   final GlobalKey<FormState> loginKey = GlobalKey<FormState>();
 
-  // String? email, phone, password;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
@@ -49,200 +47,189 @@ class LoginScreen extends StatelessWidget {
         return StreamBuilder(
           stream: Connectivity().onConnectivityChanged,
           builder: ((context, snapshot) {
-            return Stack(
-              children: [
-                Image.asset(
-                  AppAssets.mainBackgroundPng,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.fill,
-                ),
-                snapshot.data == ConnectivityResult.none
-                    ? Scaffold(
-                        backgroundColor: AppColors.transparentColor,
-                        body: buildNoInternetWidget(),
-                      )
-                    : Scaffold(
-                        backgroundColor: AppColors.transparentColor,
-                        appBar: PreferredSize(
-                          preferredSize: Size.fromHeight(7.h),
-                          child: const DefaultAppBarInAuth(),
-                        ),
-                        body: Form(
-                          key: loginKey,
-                          child: ListView(
-                            children: [
-                              Image.asset(AppAssets.logoForLoginPng,
-                                  height: 15.h),
-                              SizedBox(height: 0.6.h),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Login to Your account',
-                                    style: TextStyle(
-                                      color: AppColors.blackColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14.sp,
-                                    ),
-                                  ),
-                                ],
+            return snapshot.data == ConnectivityResult.none
+                ? Scaffold(
+                    body: buildNoInternetWidget(),
+                  )
+                : Scaffold(
+                    body: Form(
+                      key: loginKey,
+                      child: ListView(
+                        children: [
+                          SizedBox(height: 6.h),
+                          Container(
+                            width: double.infinity,
+                            height: 15.h,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(AppAssets.mainLogoPng),
+                                fit: BoxFit.cover,
                               ),
-                              SizedBox(height: 3.h),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                                child: Column(
-                                  children: [
-                                    DefaultTextFormField(
-                                      hintText: 'Email address',
-                                      imagePreffixIcon: AppAssets.emailIconPng,
-                                      imageSuffixIcon: '',
-                                      textInputType: TextInputType.emailAddress,
-                                      textEditingController: emailController,
-                                      validator: (value) {
-                                        if (value.isEmpty) {
-                                          return 'Please Enter Your Email';
-                                        } else if (!RegExp(
-                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9+_.-]+.[com]")
-                                            .hasMatch(value)) {
-                                          return 'Please Enter Valid as example@gmail.com';
-                                        }
-                                      },
-                                      // onChanged: (value) {
-                                      //   email = value;
-                                      // },
-                                    ),
-                                    SizedBox(height: 2.5.h),
-                                    DefaultTextFormField(
-                                      isPasswordField: true,
-                                      hintText: 'Password',
-                                      imagePreffixIcon:
-                                          AppAssets.passwordIconPng,
-                                      imageSuffixIcon: AppAssets.eyeIconPng,
-                                      textEditingController: passwordController,
-                                      textInputType:
-                                          TextInputType.visiblePassword,
-                                      validator: (value) {
-                                        if (value.isEmpty) {
-                                          return 'Please Enter Your Password';
-                                        } else if (value.length < 3) {
-                                          return 'Please Confirm Password is Week';
-                                        }
-                                      },
-                                      // onChanged: (value) {
-                                      //   password = value;
-                                      // },
-                                    ),
-                                    SizedBox(height: 2.5.h),
-                                    DefaultTextFormField(
-                                      hintText: 'Phone Number',
-                                      imagePreffixIcon:
-                                          AppAssets.passwordIconPng,
-                                      imageSuffixIcon: AppAssets.eyeIconPng,
-                                      textEditingController: phoneController,
-                                      textInputType: TextInputType.phone,
-                                      validator: (value) {
-                                        if (value.isEmpty) {
-                                          return 'Please Enter Your Phone Number';
-                                        } else if (value.length < 3) {
-                                          return 'Please Confirm Password is Week';
-                                        }
-                                      },
-                                      // onChanged: (value) {
-                                      //   phone = value;
-                                      // },
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            vertical: 0.8.h,
-                                            horizontal: 4.w,
-                                          ),
-                                          child: TextButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                context,
-                                                'sendPasswordScreen',
-                                              );
-                                            },
-                                            child: Text(
-                                              "Forget Password?",
-                                              style: TextStyle(
-                                                color:
-                                                    AppColors.blackColorPlayed,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 11.2.sp,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 2.5.h),
-                                    if (state is LoginLoadingState)
-                                      Center(
-                                        child: CircularProgressIndicator(
-                                          color: AppColors.primaryColor,
-                                        ),
-                                      ),
-                                    if (state is! LoginLoadingState)
-                                      DefaultButton(
-                                        bgColor: AppColors.primaryColor,
-                                        text: 'Sign in',
-                                        textColor: AppColors.whiteColor,
-                                        fontSize: 15.sp,
-                                        size: Size(90.w, 6.8.h),
-                                        onPressed: () {
-                                          if (loginKey.currentState!
-                                              .validate()) {
-                                            loginCubit.signIn(
-                                              email: emailController.text,
-                                              phone: phoneController.text,
-                                              password: passwordController.text,
-                                              context: context,
-                                            );
-                                          }
-                                        },
-                                      ),
-                                    SizedBox(height: 3.8.h),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Dont't Have An Account ?",
-                                          style: TextStyle(
-                                            color: AppColors.balckColor2Played,
-                                            fontSize: 12.2.sp,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 3.8.h),
-                                    DefaultButton(
-                                      bgColor: AppColors.primaryColor,
-                                      text: 'Sign up',
-                                      textColor: AppColors.whiteColor,
-                                      fontSize: 14.sp,
-                                      size: Size(90.w, 6.8.h),
-                                      onPressed: () {
-                                        Navigator.pushReplacementNamed(
-                                          context,
-                                          'registerScreen',
-                                        );
-                                      },
-                                    ),
-                                  ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Login to your account.',
+                                style: TextStyle(
+                                  color: AppColors.blackColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
                                 ),
                               ),
                             ],
                           ),
-                        ),
+                          SizedBox(height: 3.h),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: Column(
+                              children: [
+                                DefaultTextFormField(
+                                  hintText: 'Email address',
+                                  imagePreffixIcon: AppAssets.emailIconPng,
+                                  imageSuffixIcon: '',
+                                  textInputType: TextInputType.emailAddress,
+                                  textEditingController: emailController,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please Enter Your Email';
+                                    } else if (!RegExp(
+                                            "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9+_.-]+.[com]")
+                                        .hasMatch(value)) {
+                                      return 'Please Enter Valid as example@gmail.com';
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 2.5.h),
+                                DefaultTextFormField(
+                                  isPasswordField: true,
+                                  hintText: 'Password',
+                                  imagePreffixIcon: AppAssets.passwordIconPng,
+                                  imageSuffixIcon: AppAssets.eyeIconPng,
+                                  textEditingController: passwordController,
+                                  textInputType: TextInputType.visiblePassword,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please Enter Your Password';
+                                    } else if (value.length < 3) {
+                                      return 'Please Confirm Password is Week';
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 2.5.h),
+                                DefaultTextFormField(
+                                  hintText: 'Phone Number',
+                                  imagePreffixIcon: AppAssets.passwordIconPng,
+                                  imageSuffixIcon: AppAssets.eyeIconPng,
+                                  textEditingController: phoneController,
+                                  textInputType: TextInputType.phone,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please Enter Your Phone Number';
+                                    } else if (value.length < 3) {
+                                      return 'Please Confirm Password is Week';
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 1.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 0.8.h,
+                                        horizontal: 4.w,
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          emailController.clear();
+                                          passwordController.clear();
+                                          phoneController.clear();
+                                          Navigator.pushNamed(
+                                            context,
+                                            'sendPasswordScreen',
+                                          );
+                                        },
+                                        child: Text(
+                                          "Forget Password?",
+                                          style: TextStyle(
+                                            color: AppColors.blackColorPlayed,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 11.2.sp,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 1.h),
+                                if (state is LoginLoadingState)
+                                  Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.primaryColor,
+                                    ),
+                                  ),
+                                if (state is! LoginLoadingState)
+                                  DefaultButton(
+                                    bgColor: AppColors.primaryColor,
+                                    text: 'Login',
+                                    textColor: AppColors.whiteColor,
+                                    fontSize: 15.sp,
+                                    size: Size(90.w, 6.8.h),
+                                    onPressed: () {
+                                      if (loginKey.currentState!.validate()) {
+                                        loginCubit.signIn(
+                                          email: emailController.text,
+                                          phone: phoneController.text,
+                                          password: passwordController.text,
+                                          context: context,
+                                        );
+                                        if(state is LoginSuccessState) {
+                                        emailController.clear();
+                                        passwordController.clear();
+                                        phoneController.clear();
+                                        }
+                                      }
+                                    },
+                                  ),
+                                SizedBox(height: 3.8.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Dont't Have An Account ?",
+                                      style: TextStyle(
+                                        color: AppColors.balckColor2Played,
+                                        fontSize: 12.2.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 3.8.h),
+                                DefaultButton(
+                                  bgColor: AppColors.primaryColor,
+                                  text: 'Sign up',
+                                  textColor: AppColors.whiteColor,
+                                  fontSize: 14.sp,
+                                  size: Size(90.w, 6.8.h),
+                                  onPressed: () {
+                                    emailController.clear();
+                                    passwordController.clear();
+                                    phoneController.clear();
+                                    Navigator.pushNamed(
+                                      context,
+                                      'registerScreen',
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-              ],
-            );
+                    ),
+                  );
           }),
         );
       },

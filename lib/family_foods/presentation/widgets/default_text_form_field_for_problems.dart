@@ -7,8 +7,8 @@ import 'package:sizer/sizer.dart';
 
 class DefaultTextFormFieldForProblem extends StatelessWidget {
   Function validator;
-  Function onChanged;
-  final TextEditingController? textEditingController;
+  // Function? onChanged;
+  final TextEditingController textEditingController;
   final TextInputType textInputType;
   final String hintText;
   final int maxLines;
@@ -16,39 +16,58 @@ class DefaultTextFormFieldForProblem extends StatelessWidget {
   DefaultTextFormFieldForProblem({
     Key? key,
     required this.validator,
-    required this.onChanged,
-    this.textEditingController,
+    // this.onChanged,
+    required this.textEditingController,
     required this.textInputType,
-    required this.hintText, required this.maxLines,
+    required this.hintText,
+    required this.maxLines,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) => validator(value),
-      onChanged: (value) => onChanged(value),
+      // onChanged: (value) => onChanged!(value),
       controller: textEditingController,
       keyboardType: textInputType,
       obscureText: false,
       cursorColor: AppColors.blackColorPlayed,
       maxLines: maxLines,
       decoration: InputDecoration(
+        //   filled: true,
+        //   fillColor: AppColors.grey2ColorPlayed,
+        //   hintText: hintText,
+        //   enabledBorder: OutlineInputBorder(
+        //     borderSide: BorderSide(
+        //       width: 1.w,
+        //       color: AppColors.grey2ColorPlayed,
+        //     ),
+        //     borderRadius: BorderRadius.circular(50.0.sp),
+        //   ),
+        //   focusedBorder: OutlineInputBorder(
+        //     borderSide: BorderSide(
+        //       width: 1.w,
+        //       color: AppColors.grey2ColorPlayed,
+        //     ),
+        //     borderRadius: BorderRadius.circular(50.0.sp),
+        //   ),
+        // ),
         filled: true,
-        fillColor: AppColors.grey2ColorPlayed,
+        fillColor: AppColors.whiteColor,
         hintText: hintText,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.w,
-            color: AppColors.grey2ColorPlayed,
+            color: AppColors.grey2ColorPlayed.withOpacity(0.6),
           ),
-          borderRadius: BorderRadius.circular(50.0.sp),
+          // borderRadius: BorderRadius.circular(50.0.sp),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.w,
-            color: AppColors.grey2ColorPlayed,
+            color: AppColors.grey2ColorPlayed.withOpacity(0.6),
           ),
-          borderRadius: BorderRadius.circular(50.0.sp),
+          // borderRadius: BorderRadius.circular(50.0.sp),
         ),
       ),
     );

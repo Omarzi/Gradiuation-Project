@@ -2,6 +2,7 @@ import '../constants/constants.dart';
 
 class AppAssets {
   /// App PNG Images
+  static const String mainLogoPng = '${baseImage}logo-app.png';
   static const String checkBeforLoginPng = '${baseImage}check_screen.png';
   static const String logoSplashScreenPng = '${baseImage}splash-screen.png';
   static const String logoForLoginPng = '${baseImage}logo-login.png';
@@ -10,6 +11,8 @@ class AppAssets {
   static const String workingLogoPng = '${baseImage}working-logo.png';
   static const String mainBackgroundForHomePng = '${baseImage}bg-for-home.png';
   static const String progilePhotoPng = '${baseImage}profile-photo.png';
+  static const String chairPhotoPng = '${baseImage}chaire.png';
+  static const String watchPhotoPng = '${baseImage}Image.png';
 
   /// App Icons
   static const String emailIconPng = '${baseImage}email-icon.png';

@@ -23,3 +23,5 @@ class PasswordVisibilityState extends AuthState {}
 class LogoutLoadingState extends AuthState {}
 
 class LogoutSuccessState extends AuthState {}
+
+class LogoutErrorState extends AuthState {}

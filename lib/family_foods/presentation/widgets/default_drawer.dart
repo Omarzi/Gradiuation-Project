@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, unused_import, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
 import 'package:graduation_project/core/utils/app_assets.dart';
 import 'package:graduation_project/core/constants/constants.dart';
 import 'package:graduation_project/core/utils/app_routes.dart';
@@ -24,15 +25,17 @@ class DefaultDrawer extends StatelessWidget {
         if (state is LogoutSuccessState) {
           Navigator.pushReplacementNamed(
             context,
-            'checkScreen',
+            'loginScreen',
           );
+        } else if (state is LogoutErrorState) {
+          flutterToast(msg: 'Logout Faliar', color: AppColors.primaryColor);
         }
       },
       builder: (context, state) {
         AuthCubit logouCubit = AuthCubit.get(context);
 
         return Drawer(
-          backgroundColor: AppColors.colorOfBottomNavBarSelected,
+          backgroundColor: AppColors.primaryColor,
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 2.8.w,
@@ -65,7 +68,7 @@ class DefaultDrawer extends StatelessWidget {
                           TextSpan(
                             text: 'OO',
                             style: TextStyle(
-                              color: Color(0xFFE8C071),
+                              color: AppColors.whiteColor,
                             ),
                           ),
                           TextSpan(
@@ -115,64 +118,81 @@ class DefaultDrawer extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Segoe UI',
                     fontSize: 10.8.sp,
-                    color: AppColors.whiteColor,
+                    color: AppColors.blackColor,
                   ),
                   softWrap: false,
                 ),
                 SizedBox(height: 2.h),
                 DefaultListTile(
-                  leading: const Icon(Iconsax.home_1),
+                  leading: Icon(Icons.home, color: AppColors.greyColorPlayed),
                   title: Text(
                     'Home',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                        fontSize: 14.sp, color: AppColors.greyColorPlayed),
                   ),
                   onTap: () {},
                 ),
+                // DefaultListTile(
+                //   leading: const Icon(Iconsax.category),
+                //   title: Text(
+                //     'Products',
+                //     style: TextStyle(fontSize: 14.sp),
+                //   ),
+                //   onTap: () {},
+                // ),
+                // DefaultListTile(
+                //   leading: const Icon(Iconsax.shopping_cart),
+                //   title: Text(
+                //     'My Cart',
+                //     style: TextStyle(fontSize: 14.sp),
+                //   ),
+                //   onTap: () {},
+                // ),
                 DefaultListTile(
-                  leading: const Icon(Iconsax.category),
-                  title: Text(
-                    'Products',
-                    style: TextStyle(fontSize: 14.sp),
-                  ),
-                  onTap: () {},
-                ),
-                DefaultListTile(
-                  leading: const Icon(Iconsax.shopping_cart),
-                  title: Text(
-                    'My Cart',
-                    style: TextStyle(fontSize: 14.sp),
-                  ),
-                  onTap: () {},
-                ),
-                DefaultListTile(
-                  leading: const Icon(Iconsax.wallet_check),
+                  leading: Icon(Iconsax.wallet_check,
+                      color: AppColors.greyColorPlayed),
                   title: Text(
                     'Payments',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                        fontSize: 14.sp, color: AppColors.greyColorPlayed),
                   ),
                   onTap: () {},
                 ),
+                // DefaultListTile(
+                //   leading: const Icon(Icons.list_alt_outlined),
+                //   title: Text(
+                //     'Shipping Schedule',
+                //     style: TextStyle(fontSize: 14.sp),
+                //   ),
+                //   onTap: () {},
+                // ),
                 DefaultListTile(
-                  leading: const Icon(Icons.list_alt_outlined),
+                  leading: Icon(Icons.phone_outlined,
+                      color: AppColors.greyColorPlayed),
                   title: Text(
-                    'Shipping Schedule',
-                    style: TextStyle(fontSize: 14.sp),
+                    'Contact Us',
+                    style: TextStyle(
+                        fontSize: 14.sp, color: AppColors.greyColorPlayed),
                   ),
                   onTap: () {},
                 ),
                 DefaultListTile(
-                  leading: const Icon(Iconsax.heart),
+                  leading:
+                      Icon(Iconsax.heart, color: AppColors.greyColorPlayed),
                   title: Text(
                     'Wishlist',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                        fontSize: 14.sp, color: AppColors.greyColorPlayed),
                   ),
                   onTap: () {},
                 ),
                 DefaultListTile(
-                  leading: const Icon(Iconsax.personalcard),
+                  leading: Icon(Iconsax.personalcard,
+                      color: AppColors.greyColorPlayed),
                   title: Text(
                     'About Us',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                        fontSize: 14.sp, color: AppColors.greyColorPlayed),
                   ),
                   onTap: () {},
                 ),
@@ -184,10 +204,12 @@ class DefaultDrawer extends StatelessWidget {
                   ),
                 if (state is! LogoutSuccessState)
                   DefaultListTile(
-                    leading: const Icon(Iconsax.logout),
+                    leading:
+                        Icon(Iconsax.logout, color: AppColors.greyColorPlayed),
                     title: Text(
                       'Logout',
-                      style: TextStyle(fontSize: 14.sp),
+                      style: TextStyle(
+                          fontSize: 14.sp, color: AppColors.greyColorPlayed),
                     ),
                     onTap: () {
                       logouCubit.logOut(context: context);

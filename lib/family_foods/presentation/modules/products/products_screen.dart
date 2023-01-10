@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
 import 'package:graduation_project/core/utils/end_points.dart';
+import 'package:graduation_project/data/Models/layout/get_all_carts/get_all_carts.dart';
 import 'package:graduation_project/data/Models/layout/get_all_products/get_all_product.dart';
 import 'package:graduation_project/family_foods/business_logic/layout/cubit/get_all_products/get_all_products_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductScreen extends StatelessWidget {
+
   const ProductScreen({super.key});
 
   @override
@@ -17,6 +19,7 @@ class ProductScreen extends StatelessWidget {
     return BlocProvider<GetAllProductsCubit>(
       create: (context) => GetAllProductsCubit()
         ..getAllProducts(),
+        // ..getAllUserCart(Products()),
       child: BlocConsumer<GetAllProductsCubit, GetAllProductsState>(
         listener: (context, state) {},
         builder: (context, state) {

@@ -47,6 +47,7 @@ dev_dependencies:
     sdk: flutter
   fluttertoast: ^8.1.1
   google_fonts: ^3.0.1
+  google_nav_bar: ^5.0.6
   iconsax: ^0.0.8
   internet_connection_checker: ^1.0.0+1
   page_transition: ^2.0.9

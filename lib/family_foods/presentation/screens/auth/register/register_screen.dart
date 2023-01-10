@@ -14,7 +14,7 @@ import 'package:connectivity/connectivity.dart';
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
-  TextEditingController userNameController  = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -45,254 +45,247 @@ class RegisterScreen extends StatelessWidget {
       builder: (context, state) {
         RegisterCubit registerCubit = RegisterCubit.get(context);
         return StreamBuilder(
-            stream: Connectivity().onConnectivityChanged,
-            builder: (context, snapshot) {
-              return Stack(
-                children: [
-                  Image.asset(
-                    AppAssets.mainBackgroundPng,
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.fill,
-                  ),
-                  snapshot.data == ConnectivityResult.none
-                      ? Scaffold(
-                          backgroundColor: AppColors.transparentColor,
-                          body: buildNoInternetWidget(),
-                        )
-                      : Scaffold(
-                          backgroundColor: AppColors.transparentColor,
-                          appBar: PreferredSize(
-                            preferredSize: Size.fromHeight(7.h),
-                            child: const DefaultAppBarInAuth(),
-                          ),
-                          body: Form(
-                            key: registerKey,
-                            child: ListView(
-                              children: [
-                                SizedBox(height: 3.h),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.w),
-                                  child: Text(
-                                    'Register a New Employee',
-                                    style: TextStyle(
-                                      color: AppColors.blackColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14.sp,
+          stream: Connectivity().onConnectivityChanged,
+          builder: (context, snapshot) {
+            return Stack(
+              children: [
+                Image.asset(
+                  AppAssets.mainBackgroundPng,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.fill,
+                ),
+                snapshot.data == ConnectivityResult.none
+                    ? Scaffold(
+                        backgroundColor: AppColors.transparentColor,
+                        body: buildNoInternetWidget(),
+                      )
+                    : Scaffold(
+                        body: Form(
+                          key: registerKey,
+                          child: ListView(
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      color: AppColors.balckColor2Played,
+                                      size: 20.sp,
                                     ),
                                   ),
-                                ),
-                                SizedBox(height: 3.h),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.w),
-                                  child: Column(
-                                    children: [
-                                      DefaultTextFormField(
-                                        isObscureText: isPassword,
-                                        hintText: 'Full Name',
-                                        imagePreffixIcon:
-                                            AppAssets.personIconPng,
-                                        imageSuffixIcon: '',
-                                        textEditingController:
-                                            userNameController,
-                                        textInputType: TextInputType.text,
-                                        validator: (String value) {
-                                          if (value.isEmpty) {
-                                            return 'Please Enter Your Name';
-                                          } else if (value.length < 3) {
-                                            return 'Please The Name is Week';
-                                          }
-                                        },
-                                        // onChanged: (value) {
-                                        //   username = value;
-                                        // },
-                                      ),
-                                      SizedBox(height: 2.5.h),
-                                      DefaultTextFormField(
-                                        isObscureText: isPassword,
-                                        hintText: 'Email address',
-                                        imagePreffixIcon:
-                                            AppAssets.emailIconPng,
-                                        imageSuffixIcon: '',
-                                        textEditingController: emailController,
-                                        textInputType:
-                                            TextInputType.emailAddress,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please Enter Your Email';
-                                          } else if (!RegExp(
-                                                  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9+_.-]+.[com]")
-                                              .hasMatch(value)) {
-                                            return 'Please Enter Valid as example@gmail.com';
-                                          }
-                                        },
-                                        // onChanged: (value) {
-                                        //   email = value;
-                                        // },
-                                      ),
-                                      SizedBox(height: 2.5.h),
-                                      DefaultTextFormField(
-                                        isPasswordField: true,
-                                        hintText: 'Password',
-                                        imagePreffixIcon:
-                                            AppAssets.passwordIconPng,
-                                        imageSuffixIcon: AppAssets.eyeIconPng,
-                                        textEditingController:
-                                            passwordController,
-                                        textInputType:
-                                            TextInputType.visiblePassword,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please Enter Your Password';
-                                          } else if (value.length < 3) {
-                                            return 'Please Password is Week';
-                                          }
-                                        },
-                                        // onChanged: (value) {
-                                        //   password = value;
-                                        // },
-                                      ),
-                                      SizedBox(height: 2.5.h),
-                                      DefaultTextFormField(
-                                        check: true,
-                                        isObscureText: !isPassword,
-                                        hintText: 'Confitm Password',
-                                        imagePreffixIcon:
-                                            AppAssets.passwordIconPng,
-                                        imageSuffixIcon: AppAssets.eyeIconPng,
-                                        textEditingController:
-                                            confirmPasswordController,
-                                        textInputType:
-                                            TextInputType.visiblePassword,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please Enter Your Confirm Password';
-                                          } else if (value.length < 3) {
-                                            return 'Please Confirm Password is Week';
-                                          } else if (password !=
-                                              confirmPassword) {
-                                            return "Confirm Password is'nt Similar Password";
-                                          }
-                                        },
-                                        // onChanged: (value) {
-                                        //   confirmPassword = value;
-                                        // },
-                                      ),
-                                      SizedBox(height: 2.5.h),
-                                      DefaultTextFormField(
-                                        isObscureText: isPassword,
-                                        hintText: 'Phone Number',
-                                        imagePreffixIcon:
-                                            AppAssets.passwordIconPng,
-                                        imageSuffixIcon: AppAssets.eyeIconPng,
-                                        textEditingController: phoneController,
-                                        textInputType: TextInputType.phone,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please Enter Your Phone Number';
-                                          } else if (value.length <= 10) {
-                                            return 'Please Enter Valid Phone Number';
-                                          }
-                                        },
-                                        // onChanged: (value) {
-                                        //   phone = value;
-                                        // },
-                                      ),
-                                      SizedBox(height: 3.8.h),
-                                      if (state is RegisterLoadingState)
-                                        Center(
-                                          child: CircularProgressIndicator(
-                                            color: AppColors.primaryColor,
-                                          ),
-                                        ),
-                                      if (state is! RegisterLoadingState)
-                                        DefaultButton(
-                                            bgColor: AppColors.primaryColor,
-                                            text: 'Register',
-                                            textColor: AppColors.whiteColor,
-                                            fontSize: 13.sp,
-                                            size: Size(90.w, 6.8.h),
-                                            onPressed: () async {
-                                              if (registerKey.currentState!
-                                                  .validate()) {
-                                                await registerCubit.signup(
-                                                  username: userNameController.text,
-                                                  email: emailController.text,
-                                                  phone: phoneController.text,
-                                                  password: passwordController.text,
-                                                  confirmPassword:
-                                                      confirmPasswordController.text,
-                                                  context: context,
-                                                );
-                                              }
-                                            }),
-                                      SizedBox(height: 2.h),
-                                      Text(
-                                        "Or",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: AppColors.blackColor,
-                                          fontSize: 12.2.sp,
-                                        ),
-                                      ),
-                                      SizedBox(height: 2.h),
-                                      DefaultButton(
-                                        bgColor: AppColors.whiteColor,
-                                        text: 'Report A Problem',
-                                        textColor: AppColors.blackColorPlayed,
-                                        fontSize: 14.sp,
-                                        size: Size(90.w, 6.8.h),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            'reportAProblemScreen',
-                                          );
-                                        },
-                                      ),
-                                      SizedBox(height: 3.h),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'having a problem ?',
-                                            style: TextStyle(
-                                              color: AppColors.blackColor,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 12.sp,
-                                            ),
-                                          ),
-                                          SizedBox(width: 0.5.h),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                'reportAProblemScreen',
-                                              );
-                                            },
-                                            child: Text(
-                                              ' contact help desk',
-                                              style: TextStyle(
-                                                color: AppColors.primaryColor,
-                                                fontWeight: FontWeight.w800,
-                                                fontSize: 12.2.sp,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                ],
+                              ),
+                              Container(
+                                height: 15.h,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(AppAssets.mainLogoPng),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                'Become part of the family.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: AppColors.blackColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              SizedBox(height: 3.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                child: Column(
+                                  children: [
+                                    DefaultTextFormField(
+                                      isObscureText: isPassword,
+                                      hintText: 'Full Name',
+                                      imagePreffixIcon: AppAssets.personIconPng,
+                                      imageSuffixIcon: '',
+                                      textEditingController: userNameController,
+                                      textInputType: TextInputType.text,
+                                      validator: (String value) {
+                                        if (value.isEmpty) {
+                                          return 'Please Enter Your Name';
+                                        } else if (value.length < 3) {
+                                          return 'Please The Name is Week';
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(height: 2.5.h),
+                                    DefaultTextFormField(
+                                      isObscureText: isPassword,
+                                      hintText: 'Email address',
+                                      imagePreffixIcon: AppAssets.emailIconPng,
+                                      imageSuffixIcon: '',
+                                      textEditingController: emailController,
+                                      textInputType: TextInputType.emailAddress,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Please Enter Your Email';
+                                        } else if (!RegExp(
+                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9+_.-]+.[com]")
+                                            .hasMatch(value)) {
+                                          return 'Please Enter Valid as example@gmail.com';
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(height: 2.5.h),
+                                    DefaultTextFormField(
+                                      isPasswordField: true,
+                                      hintText: 'Password',
+                                      imagePreffixIcon:
+                                          AppAssets.passwordIconPng,
+                                      imageSuffixIcon: AppAssets.eyeIconPng,
+                                      textEditingController: passwordController,
+                                      textInputType:
+                                          TextInputType.visiblePassword,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Please Enter Your Password';
+                                        } else if (value.length < 3) {
+                                          return 'Please Password is Week';
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(height: 2.5.h),
+                                    DefaultTextFormField(
+                                      check: true,
+                                      isObscureText: !isPassword,
+                                      hintText: 'Confitm Password',
+                                      imagePreffixIcon:
+                                          AppAssets.passwordIconPng,
+                                      imageSuffixIcon: AppAssets.eyeIconPng,
+                                      textEditingController:
+                                          confirmPasswordController,
+                                      textInputType:
+                                          TextInputType.visiblePassword,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Please Enter Your Confirm Password';
+                                        } else if (value.length < 3) {
+                                          return 'Please Confirm Password is Week';
+                                        } else if (password !=
+                                            confirmPassword) {
+                                          return "Confirm Password is'nt Similar Password";
+                                        }
+                                      },
+                                      // onChanged: (value) {
+                                      //   confirmPassword = value;
+                                      // },
+                                    ),
+                                    SizedBox(height: 2.5.h),
+                                    DefaultTextFormField(
+                                      isObscureText: isPassword,
+                                      hintText: 'Phone Number',
+                                      imagePreffixIcon:
+                                          AppAssets.passwordIconPng,
+                                      imageSuffixIcon: AppAssets.eyeIconPng,
+                                      textEditingController: phoneController,
+                                      textInputType: TextInputType.phone,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Please Enter Your Phone Number';
+                                        } else if (value.length <= 10) {
+                                          return 'Please Enter Valid Phone Number';
+                                        }
+                                      },
+                                      // onChanged: (value) {
+                                      //   phone = value;
+                                      // },
+                                    ),
+                                    SizedBox(height: 3.8.h),
+                                    if (state is RegisterLoadingState)
+                                      Center(
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.primaryColor,
+                                        ),
+                                      ),
+                                    if (state is! RegisterLoadingState)
+                                      DefaultButton(
+                                          bgColor: AppColors.primaryColor,
+                                          text: 'Signup',
+                                          textColor: AppColors.whiteColor,
+                                          fontSize: 13.sp,
+                                          size: Size(90.w, 6.8.h),
+                                          onPressed: () async {
+                                            if (registerKey.currentState!
+                                                .validate()) {
+                                              await registerCubit.signup(
+                                                username:
+                                                    userNameController.text,
+                                                email: emailController.text,
+                                                phone: phoneController.text,
+                                                password:
+                                                    passwordController.text,
+                                                confirmPassword:
+                                                    confirmPasswordController
+                                                        .text,
+                                                context: context,
+                                              );
+                                              if (state
+                                                  is RegisterSuccessState) {
+                                                userNameController.clear();
+                                                emailController.clear();
+                                                passwordController.clear();
+                                                confirmPasswordController
+                                                    .clear();
+                                                phoneController.clear();
+                                              }
+                                            }
+                                          }),
+                                    SizedBox(height: 3.h),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'having a problem ?',
+                                          style: TextStyle(
+                                            color: AppColors.blackColor,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 12.sp,
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            userNameController.clear();
+                                            emailController.clear();
+                                            passwordController.clear();
+                                            confirmPasswordController.clear();
+                                            phoneController.clear();
+                                            Navigator.pushNamed(
+                                              context,
+                                              'reportAProblemScreen',
+                                            );
+                                          },
+                                          child: Text(
+                                            'contact help desk',
+                                            style: TextStyle(
+                                              color: AppColors.primaryColor,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 12.2.sp,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                ],
-              );
-            });
+                      ),
+              ],
+            );
+          },
+        );
       },
     );
   }

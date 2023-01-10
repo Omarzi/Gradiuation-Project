@@ -1,8 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, avoid_unnecessary_containers
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:graduation_project/core/utils/app_assets.dart';
-import 'package:graduation_project/data/Models/layout/get_all_products/get_all_product.dart';
 import 'package:graduation_project/family_foods/presentation/styles/app_colors.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/custom_container_in_loading_data.dart';
 import 'package:sizer/sizer.dart';
@@ -37,43 +35,33 @@ Widget showLoadingIndicator() {
 
 Widget buildNoInternetWidget() {
   return Center(
-    child: Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: const BoxDecoration(
-        color: AppColors.transparentColor,
-        image: DecorationImage(
-          image: AssetImage(AppAssets.mainBackgroundPng),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 15.h),
+
+        Icon(
+          Icons.wifi_off_outlined,
+          size: 50.sp,
+          color: AppColors.primaryColor,
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 15.h),
+        SizedBox(height: 10.h),
 
-          Icon(
-            Icons.wifi_off_outlined,
-            size: 50.sp,
-            color: AppColors.primaryColor,
+        Text(
+          "Can't connect .. check internet",
+          style: TextStyle(
+            fontSize: 20.sp,
+            color: AppColors.blackColor,
+            fontWeight: FontWeight.w600,
           ),
-          SizedBox(height: 10.h),
+        ),
 
-          Text(
-            "Can't connect .. check internet",
-            style: TextStyle(
-              fontSize: 20.sp,
-              color: AppColors.blackColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-
-          // SvgPicture.asset(AppAssets.noInternetSvg),
-          SizedBox(height: 10.h),
-          CircularProgressIndicator(
-            color: AppColors.primaryColor,
-          ),
-        ],
-      ),
+        // SvgPicture.asset(AppAssets.noInternetSvg),
+        SizedBox(height: 10.h),
+        CircularProgressIndicator(
+          color: AppColors.primaryColor,
+        ),
+      ],
     ),
   );
 }
@@ -142,5 +130,11 @@ Widget loading() {
     ),
   );
 }
+
+// ------------ //
+
+// ------------ //
+
+
 
 // ------------ //

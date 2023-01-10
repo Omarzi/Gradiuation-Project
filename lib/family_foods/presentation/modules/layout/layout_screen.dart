@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, avoid_print
 import 'package:flutter/material.dart';
 import 'package:graduation_project/core/constants/constants_methods/constant_methods.dart';
-import 'package:graduation_project/core/utils/app_assets.dart';
-import 'package:graduation_project/family_foods/business_logic/layout/cubit/get_all_products/get_all_products_cubit.dart';
 import 'package:graduation_project/family_foods/business_logic/layout/layout_cubit.dart';
 import 'package:graduation_project/family_foods/presentation/modules/cart/cart_screen.dart';
 import 'package:graduation_project/family_foods/presentation/modules/home/home_screen.dart';
@@ -13,9 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_app_bar_in_all_screens.dart';
 import 'package:graduation_project/family_foods/presentation/widgets/default_drawer.dart';
 import 'package:sizer/sizer.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:iconsax/iconsax.dart';
 
 class LayoutScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -25,7 +23,7 @@ class LayoutScreen extends StatelessWidget {
   List<Widget> tabs = [
     HomeScreen(),
     const ProductScreen(),
-    const CartScreen(),
+    CartScreen(),
     const ProfileScreen(),
   ];
 
@@ -37,74 +35,112 @@ class LayoutScreen extends StatelessWidget {
         return StreamBuilder(
           stream: Connectivity().onConnectivityChanged,
           builder: ((context, snapshot) {
-            return Stack(
-              children: [
-                Image.asset(
-                  AppAssets.mainBackgroundPng,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.fill,
-                ),
-                snapshot.data == ConnectivityResult.none
-                    ? Scaffold(
-                        backgroundColor: AppColors.transparentColor,
-                        body: buildNoInternetWidget(),
-                      )
-                    : Scaffold(
-                        key: scaffoldKey,
-                        backgroundColor: AppColors.transparentColor,
-                        drawer: const DefaultDrawer(),
-                        appBar: PreferredSize(
-                          preferredSize: Size(double.infinity, 7.h),
-                          child: DefaultAppBarInAllScreens(
-                              scaffoldKey: scaffoldKey),
+            return snapshot.data == ConnectivityResult.none
+                ? Scaffold(
+                    body: buildNoInternetWidget(),
+                  )
+                : Scaffold(
+                    key: scaffoldKey,
+                    // drawer: const DefaultDrawer(),
+                    /*
+                    IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Iconsax.notification,
+            color: AppColors.blackColor,
+          ),
+          // width: 6.w,
+          // ),
+        ),
+                    */
+                    appBar: PreferredSize(
+                      preferredSize: Size(double.infinity, 7.h),
+                      child: DefaultAppBarInAllScreens(
+                        scaffoldKey: scaffoldKey,
+                        title: layoutCubit.currentIndex == 0
+                            ? const Text(
+                                'Home',
+                                style: TextStyle(color: AppColors.blackColor),
+                              )
+                            : layoutCubit.currentIndex == 1
+                                ? const Text(
+                                    'Search',
+                                    style:
+                                        TextStyle(color: AppColors.blackColor),
+                                  )
+                                : layoutCubit.currentIndex == 2
+                                    ? const Text(
+                                        'My Cart',
+                                        style: TextStyle(
+                                            color: AppColors.blackColor),
+                                      )
+                                    : layoutCubit.currentIndex == 3
+                                        ? const Text(
+                                            'Profile',
+                                            style: TextStyle(
+                                                color: AppColors.blackColor),
+                                          )
+                                        : Container(),
+                        actions: [
+                          layoutCubit.currentIndex == 0
+                              ? IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Iconsax.notification,
+                                    color: AppColors.blackColor,
+                                  ),
+                                )
+                              : layoutCubit.currentIndex == 1
+                                  ? Container()
+                                  : layoutCubit.currentIndex == 2
+                                      ? Container()
+                                      : layoutCubit.currentIndex == 3
+                                          ? Container()
+                                          : Container(),
+                        ],
+                      ),
+                    ),
+                    body: tabs[layoutCubit.currentIndex],
+                    bottomNavigationBar: Container(
+                      color: AppColors.whiteColor,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 1.6.h,
+                          horizontal: 1.8.w,
                         ),
-                        body: tabs[layoutCubit.currentIndex],
-                        bottomNavigationBar: FloatingNavbar(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 3.w,
-                            vertical: 0.h,
-                          ),
-                          onTap: (int value) async {
-                            print(layoutCubit.currentIndex);
+                        child: GNav(
+                          backgroundColor: AppColors.whiteColor,
+                          color: AppColors.blackColor.withOpacity(0.7),
+                          activeColor: AppColors.primaryColor,
+                          tabBackgroundColor:
+                              AppColors.greyColorPlayed.withOpacity(0.3),
+                          padding: EdgeInsets.all(16.sp),
+                          gap: 3.w,
+                          onTabChange: (value) {
                             layoutCubit.onTap(value);
-                            // if (value == 1) {
-                            //   await GetAllProductsCubit.get(context)
-                            //       .getAllUserCart;
-                            // }
                           },
-                          fontSize: 11.sp,
-                          selectedBackgroundColor: AppColors.transparentColor,
-                          unselectedItemColor:
-                              AppColors.colorOfBottomNavBarUnSelected,
-                          selectedItemColor:
-                              AppColors.colorOfBottomNavBarSelected,
-                          borderRadius: 15.sp,
-                          currentIndex: layoutCubit.currentIndex,
-                          iconSize: 20.sp,
-                          backgroundColor: const Color(0xFFF5F8FA),
-                          items: [
-                            FloatingNavbarItem(
-                              icon: Iconsax.home_1,
-                              title: 'Home',
+                          tabs: const [
+                            GButton(
+                              icon: Icons.home,
+                              text: 'Home',
                             ),
-                            FloatingNavbarItem(
-                              icon: Iconsax.category,
-                              title: 'Products',
+                            GButton(
+                              icon: Icons.search,
+                              text: 'Search',
                             ),
-                            FloatingNavbarItem(
-                              icon: Iconsax.shopping_cart,
-                              title: 'Cart',
+                            GButton(
+                              icon: Icons.shopping_cart,
+                              text: 'Cart',
                             ),
-                            FloatingNavbarItem(
-                              icon: Iconsax.profile_circle,
-                              title: 'Profile',
+                            GButton(
+                              icon: Icons.person,
+                              text: 'Profile',
                             ),
                           ],
                         ),
                       ),
-              ],
-            );
+                    ),
+                  );
           }),
         );
       },

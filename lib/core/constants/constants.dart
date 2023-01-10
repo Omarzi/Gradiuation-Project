@@ -44,6 +44,9 @@ List<BlocProviderSingleChildWidget> cubits = [
   //   // create: (context) => GetAllProductsCubit()..getAllProducts()..getAllUserCart()
   //   create: (context) => GetAllProductsCubit()..getAllProducts(),
   // ),
+  // BlocProvider(
+  //   create: (context) => GetAllUserCartCubit(),
+  // )
 ];
 
 // End Cubits //

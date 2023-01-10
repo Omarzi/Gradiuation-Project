@@ -4,7 +4,7 @@ import 'hex_colors.dart';
 
 class AppColors {
   // Custom Colors
-  static final primaryColor = HexColor('#00D18B');
+  static final primaryColor = HexColor('#2f9ec8');
   static final primaryColorLight = HexColor('#6BE6C4');
   static final greyColorPlayed = HexColor('#E0E0E0');
   static final grey2ColorPlayed = HexColor('#F2F3F8');

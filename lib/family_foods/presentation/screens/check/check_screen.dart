@@ -13,20 +13,33 @@ class CheckScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.asset(
-          AppAssets.checkBeforLoginPng,
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.fill,
-        ),
+        // Image.asset(
+        //   AppAssets.checkBeforLoginPng,
+        //   width: double.infinity,
+        //   height: double.infinity,
+        //   fit: BoxFit.fill,
+        // ),
         Scaffold(
-          backgroundColor: AppColors.transparentColor,
+          // backgroundColor: AppColors.transparentColor,
           body: Center(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Column(
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 1.4),
+                  SizedBox(height: 15.h),
+                  Container(
+                    width: double.infinity,
+                    height: 50.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(AppAssets.mainLogoPng),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  // SizedBox(height: 20.h),
+
+                  // SizedBox(height: MediaQuery.of(context).size.height / 1.4),
                   DefaultButton(
                     onPressed: () => Navigator.pushNamed(
                       context,
